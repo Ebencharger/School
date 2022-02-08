@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -33,9 +34,12 @@ Route::post('/login', function (Request $request) {
          return redirect()->to('login');
         }
         return redirect()->to('dashboard');
-
 })->name('login');
 
+Route::get('/logout', function () {
+    Auth::logout();
+    return view('login');
+});
 Route::get('/login', function () {
     return view('login');
 });
@@ -49,6 +53,7 @@ Route::post('/signup', function (Request $request) {
     $user = User::create([
         'fullname' => $request->fullname,
         'email' => $request->email,
+        'level' => 1,
         'password' => Hash::make($request->password),
     ]);
     $code=mt_rand(100000, 900000);
@@ -71,3 +76,74 @@ Route::post('/signup', function (Request $request) {
 Route::get('/signup', function () {
     return view('signup');
 });
+
+Route::get('/dashboard', function(){
+  return view('dashboard');
+});
+
+Route::post('/completeReg', function(Request $request){
+    $request->validate([
+        'dob' => "required",
+        'country' => "required",
+        'state' => "required",
+        'phoneno' => "required",
+        'nok' => "required",
+        'addressNok' => "required",
+        'phoneNok' => "required",
+        'program' => "required",
+    ]);
+    $complete=DB::table('users')->where([['id', $request->user()->id]])->update(
+             [
+            'dob'=>$request->dob,
+             'country'=>$request->country,
+             'state'=>$request->state,
+             'phoneno'=>$request->phoneno,
+             'nok'=>$request->nok,
+             'addressNok'=>$request->addressNok,
+             'phoneNok'=>$request->phoneNok,
+             'program'=>$request->program,
+           ]);
+    if ($complete) {
+       return redirect()->to('dashboard');
+    }
+})->name('comleteReg');
+
+Route::get('/completeReg', function(){
+ return view('dashboard');
+});
+Route::get('/dashHome', function(){
+ return view('dashHome');
+});
+
+Route::prefix('dashboard')->group(function(){
+    Route::get('/completeReg', function(){
+        return view('completeReg')->with('data', [auth()->user()]);
+       }); 
+    Route::get('/courseReg', function(){
+        $level=Carbon::parse(Carbon::now())->diffInMonths(Carbon::parse(auth()->user()->created_at));
+        $course=DB::table('course')->get();
+        $regCourse=DB::table('coursereg')->where([['user_id', auth()->user()->id]])->get();
+        return view('courseReg')->with(['course'=> $course, 'regCourse'=>$regCourse, 'level'=>auth()->user()->level]);
+       }); 
+    Route::post('/courseReg', function(Request $request){
+        $request->validate([
+            'course'=>"required|",
+        ]);
+        DB::table('coursereg')->insert([
+         'user_id'=>auth()->user()->id,
+         'courseCode'=>$request->courseCode,
+         'courseTitle'=>$request->courseTitle,
+         'unit'=>$request->unit,
+         'created_at'=>now(),
+        ]);
+        return redirect()->to('dashboard/courseReg');
+    });
+
+    Route::get('/timetable', function(){
+     $timetable=DB::table('timetable')->where([['program', auth()->user()->program]])->get();
+      return view('timetable')->with(['timetable'=>$timetable]);
+    });
+});
+
+
+

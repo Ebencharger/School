@@ -54,6 +54,15 @@
            .header a{
                text-decoration: none;
            }
+           #register input {
+            outline: none;
+            width: 600px;
+            padding: 4px;
+            margin-right: 43px;
+            border: none;
+            border-radius: 0px;
+            border-bottom: 2px solid #007bff;
+        }
    </style>
    
    
