@@ -151,7 +151,7 @@
             height: 100%;
             background-color: transparent;
             margin-left: 250px;
-            margin-top: 100px;
+            margin-top: 150px;
             padding: 30px;
             font-size: 17px;
         }
@@ -199,11 +199,16 @@
 
         .profile {
             position: absolute;
-            right: 20px;
+            right: 40px;
+            top: 200px;
+        }
+        .profile2 {
+            position: absolute;
+            right: 50px;
             top: 200px;
         }
 
-        .profile img {
+        .profile2 img {
             width: 100px;
             height: 100px;
             border-radius: 100%;
@@ -269,13 +274,17 @@
                     <button><a href="/dashboard/completeReg">Complete Registration</a></button>
                     <button><a href="/dashboard/courseReg">Course Registration</a></button>
                     <button><a href="/dashboard/timetable">Timetable</a></button>
-                    <button>Payment and Receipt</button>
+                    <button><a href="/dashboard/payment">Payment/Receipt</a></button>
                     <button>Assignment and Project</button>
                     <button>Result</button>
                 </div>
-                <form action="{{url('completeReg')}}" method="post" id="completeReg" class="content">
+                <form action="{{url('completeReg')}}" method="post" enctype="multipart/form-data" id="completeReg" class="content">
+                    <div class="profile2">
+                        <img src="" alt="No image" id="myImage">
+                        <input type="file" id="image" hidden name="image">
+                    </div>
                     <div class="profile">
-                        <img src="{{url('images/person_9.jpg')}}" alt="">
+                        <button id="imageBtn" class="btn btn-primary" type="button" onclick="handleImage()">Change Picture</button>
                     </div>
                     <div>
                         <span>Full Name:</span>
@@ -406,8 +415,23 @@
 </html>
 <script>
     let userData =@json($data);
-    document.getElementById('fullname').value = userData[0].fullname;
-    if (userData[0].dob) {
+    console.log(userData);
+    let url=@json($picture);
+    console.log(url);
+    document.getElementById('fullname').value = userData.fullname;
+    if (userData.dob) {
+        document.getElementById('dob').value = userData.dob;
+        document.getElementById('country').value = userData.country;
+        document.getElementById('state').value = userData.state;
+        document.getElementById('phoneno').value = userData.phoneno;
+        document.getElementById('nok').value = userData.nok;
+        document.getElementById('addressNok').value = userData.addressNok;
+        document.getElementById('phoneNok').value = userData.phoneNok;
+        document.getElementById('program').value = userData.program;
+        document.getElementById('myImage').src = `{{url('/storage/${userData.image}')}}`;
+        document.getElementById('complete').setAttribute('disabled', 'true');
+        document.getElementById('imageBtn').setAttribute('disabled', 'true');
+
         document.getElementById('dob').setAttribute('readonly', 'true');
         document.getElementById('country').setAttribute('readonly', 'true');
         document.getElementById('state').setAttribute('readonly', 'true');
@@ -416,26 +440,12 @@
         document.getElementById('addressNok').setAttribute('readonly', 'true');
         document.getElementById('phoneNok').setAttribute('readonly', 'true');
         document.getElementById('program').setAttribute('readonly', 'true');
-        document.getElementById('complete').setAttribute('disabled', 'true');
-        document.getElementById('dob').value = userData[0].dob;
-        document.getElementById('country').value = userData[0].country;
-        document.getElementById('state').value = userData[0].state;
-        document.getElementById('phoneno').value = userData[0].phoneno;
-        document.getElementById('nok').value = userData[0].nok;
-        document.getElementById('addressNok').value = userData[0].addressNok;
-        document.getElementById('phoneNok').value = userData[0].phoneNok;
-        document.getElementById('program').value = userData[0].program;
     }
-    let content = document.getElementById('content');
-    let completeReg = document.getElementById('completeReg');
-    handleHome = () => {
-        content.hidden = false;
-        completeReg.hidden = true;
+    let image = document.getElementById('image');
+    handleImage= () => {
+       image.click();
     }
-    handleComplete = () => {
-        content.hidden = true;
-        completeReg.hidden = false;
-    }
+   
   
 </script>
 @endguest

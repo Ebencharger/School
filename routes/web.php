@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +84,10 @@ Route::get('/dashboard', function(){
 });
 
 Route::post('/completeReg', function(Request $request){
+    $imageName=mt_rand(1000, 9000);
+    $extension=$request->image->extension();
+    $image=$imageName.'.'.$extension;
+    $path=$request->image->storeAs('images', $image);
     $request->validate([
         'dob' => "required",
         'country' => "required",
@@ -91,6 +97,7 @@ Route::post('/completeReg', function(Request $request){
         'addressNok' => "required",
         'phoneNok' => "required",
         'program' => "required",
+        'image' => "required",
     ]);
     $complete=DB::table('users')->where([['id', $request->user()->id]])->update(
              [
@@ -102,6 +109,7 @@ Route::post('/completeReg', function(Request $request){
              'addressNok'=>$request->addressNok,
              'phoneNok'=>$request->phoneNok,
              'program'=>$request->program,
+             'image'=>$path,
            ]);
     if ($complete) {
        return redirect()->to('dashboard');
@@ -117,12 +125,14 @@ Route::get('/dashHome', function(){
 
 Route::prefix('dashboard')->group(function(){
     Route::get('/completeReg', function(){
-        return view('completeReg')->with('data', [auth()->user()]);
+        $userPic=auth()->user()->image;
+        $url=Storage::url($userPic);
+        return view('userReg')->with(['data'=>auth()->user(), 'picture'=>$url]);
        }); 
     Route::get('/courseReg', function(){
         $level=Carbon::parse(Carbon::now())->diffInMonths(Carbon::parse(auth()->user()->created_at));
         $course=DB::table('course')->get();
-        $regCourse=DB::table('coursereg')->where([['user_id', auth()->user()->id]])->get();
+        $regCourse=DB::table('coursereg')->where([['user_id', auth()->user()->id], ['level', auth()->user()->level]])->get();
         return view('courseReg')->with(['course'=> $course, 'regCourse'=>$regCourse, 'level'=>auth()->user()->level]);
        }); 
     Route::post('/courseReg', function(Request $request){
@@ -133,6 +143,7 @@ Route::prefix('dashboard')->group(function(){
          'user_id'=>auth()->user()->id,
          'courseCode'=>$request->courseCode,
          'courseTitle'=>$request->courseTitle,
+         'level'=>$request->level,
          'unit'=>$request->unit,
          'created_at'=>now(),
         ]);
@@ -140,8 +151,30 @@ Route::prefix('dashboard')->group(function(){
     });
 
     Route::get('/timetable', function(){
-     $timetable=DB::table('timetable')->where([['program', auth()->user()->program]])->get();
+     $timetable=DB::table('timetable')->where([['program', auth()->user()->program], ['level', auth()->user()->level]])->get();
       return view('timetable')->with(['timetable'=>$timetable]);
+    });
+    Route::post('/payment', function(Request $request){
+     $paid=DB::table('payment')->insert([
+      'user_id'=>auth()->user()->id,
+      'level'=>auth()->user()->level,
+      'amount'=>$request->amount,
+      'reference'=>$request->reference,
+      'payment_date'=>now()
+     ]);
+     if ($paid) {
+        session()->flash('success','You paid your fees successfully !');
+        return redirect()->to('dashboard/payment');
+     }
+    });
+    Route::get('/payment', function(){
+        $payment=DB::table('payment')->where([['user_id', auth()->user()->id]])->get();
+        $paymentInfo=DB::table('paymentinfo')->where([['level', auth()->user()->level]])->get();
+        return view('payment')->with(['userInfo'=>auth()->user(),'paymentInfo'=>$paymentInfo,'payment'=>$payment, 'email'=>auth()->user()->email]);
+    });
+    Route::post('/paymentError', function(){
+        session()->flash('error','Something went wrong. Please try again!');
+        return redirect()->to('dashboard/payment');
     });
 });
 

@@ -285,8 +285,8 @@
                 <div class="menu">
                     <button><a href="/dashboard/completeReg">Complete Registration</a></button>
                     <button><a href="/dashboard/courseReg">Course Registration</a></button>
-                    <button>Timetable</button>
-                    <button>Payment and Receipt</button>
+                    <button><a href="/dashboard/timetable">Timetable</a></button>
+                    <button><a href="/dashboard/payment">Payment/Receipt</a></button>
                     <button>Assignment and Project</button>
                     <button>Result</button>
                 </div>

@@ -111,7 +111,6 @@
         }
 
         .btn-primary:hover a {
-            text-decoration: none;
             color: black
         }
 
@@ -155,6 +154,12 @@
             margin-top: 100px;
             padding: 30px;
             font-size: 17px;
+        }
+        .newcontent{
+            margin-top: 100px;
+            width: 81%;
+            margin-left: 250px;
+            padding: 30px;
         }
 
         .body .content p {
@@ -213,12 +218,14 @@
         .table {
             width: 100%;
         }
+       
 
         .table table {
             width: 100%;
             border: 1px solid black;
             border-collapse: collapse
         }
+
 
         th,
         td,
@@ -244,10 +251,26 @@
             border: none;
             border-bottom: 2px solid #007bff;
         }
-       .menu button a{
+
+        .menu button a {
             text-decoration: none;
             color: black;
-       }
+        }
+
+        #theCourse {
+            width: 200px;
+            height: 400px;
+            overflow-y: scroll;
+            background-color: white;
+            box-shadow: 0px 0px 4px black;
+            position: absolute;
+            padding: 20px;
+            margin-top: 63px;
+        }
+
+        #theCourse H5 {
+            margin-bottom: 23px;
+        }
     </style>
 </head>
 
@@ -274,16 +297,126 @@
                     <button>Assignment and Project</button>
                     <button>Result</button>
                 </div>
-                @extends('dashHome');
+               <div class="newcontent" id="mytable">
+                @if($su=Session::get('success'))
+                <div class="alert alert-success">
+                    <strong>{{$su}}</strong>
+                </div>
+                @endif
+                <div  class="table">
+                    <div class="text-center">
+                        <h2>PAYMENT HISTORY</h2>
+                    </div>
+                    <table  id="newtable">
+                        <th>S/N</th>
+                        <th>AMOUNT</th>
+                        <th>LEVEL</th>
+                        <th>PAYMENT DATE</th>
+                        <th>REFERENCE</th>
+                    </table>
+                </div>
+               </div>
+                <form hidden action="{{url('dashboard/paymentError')}}" method="post">
+                    @csrf
+                  <button id="paymentError">click</button>
+                </form>
+                <form action="{{url('dashboard/payment')}}" method="post" id="courseReg" class="content">
+                    <div class="text-center">
+                        <h2>PAYMENT</h2>
+                    </div>
+                    <div class="table">
+                        <table id="table">
+                            <th>S/N</th>
+                            <th>AMOUNT</th>
+                            <th>LEVEL</th>
+                            <th>DEADLINE DATE</th>
+                            <th>PENALTY CHARGE</th>
+                        </table>
+                    </div>
+                    <div id="mycourse">
+                        <div id="theCourse" hidden>
+
+                        </div>
+                        @if($su=Session::get('error'))
+                        <div class="alert alert-danger">
+                            <strong>{{$su}}</strong>
+                        </div>
+                        @endif
+                        <div class="mb-3">
+                            <span>Message</span>
+                            <div>
+                                <input id="course" type="text" readonly name="course"
+                                value="Remember you're making use of online payment gateway">
+                                <input hidden type="text" name="amount" id="amount">
+                                <input hidden type="text" name="reference" id="reference">
+                                @csrf
+                               <button id="payit" hidden>Click</button>
+                                <button id="course" onclick="handlePayment()" type="button" class="btn btn-primary">Make
+                                    Payment</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
             </div>
             </div>
         </main>
     </main>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
 </body>
 
 </html>
 <script>
+    let userInfo=@json($userInfo);
+    let paymentInfo =@json($paymentInfo);
+    let payment =@json($payment);
+    console.log(payment);
+    let email =@json($email);
+    let index=userInfo.level;
+    if (payment.length<index && payment.length!=0) {
+        document.getElementById('courseReg').hidden=false;
+    }
+    else if(payment.length<index && payment.length==0){
+        document.getElementById('courseReg').hidden=false;
+        document.getElementById('mytable').hidden=true;
+    }else{
+        document.getElementById('courseReg').hidden=true;
+        document.getElementById('mytable').hidden=false;
+    }
+    for (let i = 0; i < paymentInfo.length; i++) {
+        let amount = new Intl.NumberFormat("en-Us", { currency: "NGN", style: "currency" }).format(paymentInfo[i].amount);
+        let penalty = new Intl.NumberFormat("en-Us", { currency: "NGN", style: "currency" }).format(paymentInfo[i].penalty);
+        document.getElementById('table').innerHTML += `<tr><td>${i + 1}</td><td>${amount}</td><td>${paymentInfo[i].level}</td><td>${paymentInfo[i].deadline}</td><td>${penalty}</td></tr>`
 
-  
+    }
+    for (let i = 0; i < payment.length; i++) {
+        let amount = new Intl.NumberFormat("en-Us", { currency: "NGN", style: "currency" }).format(payment[i].amount);
+        document.getElementById('newtable').innerHTML += `<tr><td>${i + 1}</td><td>${amount}</td><td>${payment[i].level}</td><td>${payment[i].payment_date}</td><td>${payment[i].reference}</td></tr>`
+
+    }
+    function handlePayment() {
+        let refer
+        var handler = PaystackPop.setup({
+            key: 'pk_test_b151276bd6786f5c094f1c35d7ee0008f073fb2d',
+            email: email,
+            amount: paymentInfo[0].amount * 100,
+            currency: 'NGN',
+            callback: function (response) {
+                let reference = response.reference;
+                //this happens after the payment is completed successfully
+                document.getElementById('amount').value=paymentInfo[0].amount;
+                document.getElementById('reference').value=reference;
+                document.getElementById('payit').click();
+            },
+            onClose: function () {
+                document.getElementById('paymentError').click();
+            },
+        });
+        handler.openIframe();
+    }
+
+
+
 </script>
 @endguest

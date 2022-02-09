@@ -286,11 +286,11 @@
                     <button><a href="/dashboard/completeReg">Complete Registration</a></button>
                     <button><a href="/dashboard/courseReg">Course Registration</a></button>
                     <button><a href="/dashboard/timetable">Timetable</a></button>
-                    <button>Payment and Receipt</button>
+                    <button><a href="/dashboard/payment">Payment/Receipt</a></button>
                     <button>Assignment and Project</button>
                     <button>Result</button>
                 </div>
-                <form action="" method="post" id="courseReg" class="content">
+                <form action="{{'/dashboard/courseReg'}}" method="post" id="courseReg" class="content">
                     <div id="errorReg" hidden class="alert alert-danger">
                         <h3 class="text-danger">You can not register this course now</h3>
                     </div>
@@ -308,6 +308,7 @@
                                     value="{{old('course')}}" class="{{$errors->has('course') ? 'is-inavlid' : '' }}">
                                 <input hidden type="text" name="courseCode" id="courseCode">
                                 <input hidden type="text" name="courseTitle" id="courseTitle">
+                                <input hidden type="text" name="level" id="level">
                                 <input hidden type="text" name="unit" id="unit">
                                 @csrf
                                 <button id="course" class="btn btn-primary">ADD
@@ -350,6 +351,7 @@
     let seenTwo = false;
     let seenThree = false;
     let seenFour = false;
+    let seenFive = false;
     for (let i = 0; i < course.length; i++) {
         document.getElementById('theCourse').innerHTML += `<h5>${course[i].courseCode}<h5>`;
     }
@@ -401,7 +403,7 @@
 
             else if (i == regCourse.length - 1 && seenThree == false) {
                 for (let k = 0; k < course.length; k++) {
-            if ((Number(course[k].courseCode.substr(4, 1)) > level)) {
+            if ((Number(course[k].courseCode.substr(4, 1)) > level) || (Number(course[k].courseCode.substr(4, 1)) < level)) {
                 document.getElementById('errorReg').hidden = false;
                 seenFour = true;
                 document.getElementById('course').value = "";
@@ -415,6 +417,7 @@
                 document.getElementById('course').value = course[params].courseCode;
                 document.getElementById('courseCode').value = course[params].courseCode;
                 document.getElementById('courseTitle').value = course[params].courseTitle;
+                document.getElementById('level').value = level;
                 document.getElementById('unit').value = course[params].unit;
                 document.getElementById('theCourse').hidden = true;
             }
@@ -425,11 +428,36 @@
         }
         }
         if(regCourse.length==0){
+            for (let j = 0; j < course.length; j++) {
+            if ((Number(course[params].courseCode.substr(4, 1)) != level)) {
+                document.getElementById('errorReg').hidden = false;
+                seenFive = true;
+                document.getElementById('course').value = "";
+                document.getElementById('theCourse').hidden = true;
+                setTimeout(() => {
+                    seenFive = false;
+                }, 1000);
+            }
+            else if (j == course.length - 1 && seenFive == false) {
                 document.getElementById('course').value = course[params].courseCode;
                 document.getElementById('courseCode').value = course[params].courseCode;
                 document.getElementById('courseTitle').value = course[params].courseTitle;
+                document.getElementById('level').value = level;
                 document.getElementById('unit').value = course[params].unit;
-                document.getElementById('theCourse').hidden = true; 
+                document.getElementById('theCourse').hidden = true;
+            }
+
+            // else{
+            //     document.getElementById('course').value = course[params].courseCode;
+            //     document.getElementById('courseCode').value = course[params].courseCode;
+            //     document.getElementById('courseTitle').value = course[params].courseTitle;
+            //     document.getElementById('unit').value = course[params].unit;
+            //     document.getElementById('theCourse').hidden = true; 
+            // }
+
+
+        }
+                
         }
    
 
