@@ -155,12 +155,6 @@
             padding: 30px;
             font-size: 17px;
         }
-        .newcontent{
-            margin-top: 100px;
-            width: 81%;
-            margin-left: 250px;
-            padding: 30px;
-        }
 
         .body .content p {
             text-decoration: underline
@@ -218,7 +212,6 @@
         .table {
             width: 100%;
         }
-       
 
         .table table {
             width: 100%;
@@ -248,6 +241,16 @@
             width: 600px;
             padding: 4px;
             margin-right: 43px;
+            border: none;
+            border-bottom: 2px solid #007bff;
+        }
+
+        .assignment input {
+            outline: none !important;
+            width: 260px !important;
+            padding: 4px;
+            margin-right: 43px;
+            text-align: center;
             border: none;
             border-bottom: 2px solid #007bff;
         }
@@ -288,134 +291,125 @@
                     <button class="btn btn-primary"><a href="/dashboard">HOME</a></button>
                 </div>
             </div>
-            <div class="body">
-                <div class="menu">
+            <div class="body" id="body">
+
+
+            </div>
+            </div>
+        </main>
+    </main>
+</body>
+
+</html>
+<script>
+    let assignment =@json($assignment);
+    let submission =@json($submit);
+    let seen = false;
+    let index = 0;
+    number = [];
+    if (submission.length > 0) {
+        for (let i = 0; i < submission.length; i++) {
+            console.log(i);
+            if (assignment[i].question==submission[i].question) {
+                number.push(i);
+                seen = true;
+                setTimeout(() => {
+                    seen = false;
+                }, 1000);
+            }
+            else if (i == assignment.length - 1 && seen == false) {
+                assignment = assignment;
+            }
+        }
+         assignment.splice(0, number.length);
+    }
+     
+    console.log(assignment);
+    function display() {
+        if (assignment.length==0) {
+            document.getElementById('body').innerHTML += `<div class="menu">
                     <button><a href="/dashboard/completeReg">Complete Registration</a></button>
                     <button><a href="/dashboard/courseReg">Course Registration</a></button>
                     <button><a href="/dashboard/timetable">Timetable</a></button>
                     <button><a href="/dashboard/payment">Payment/Receipt</a></button>
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
                     <button>Result</button>
-                </div>
-               <div class="newcontent" id="mytable">
-                @if($su=Session::get('success'))
-                <div class="alert alert-success">
-                    <strong>{{$su}}</strong>
-                </div>
-                @endif
-                <div  class="table">
-                    <div class="text-center">
-                        <h2>PAYMENT HISTORY</h2>
-                    </div>
-                    <table  id="newtable">
-                        <th>S/N</th>
-                        <th>AMOUNT</th>
-                        <th>LEVEL</th>
-                        <th>PAYMENT DATE</th>
-                        <th>REFERENCE</th>
-                    </table>
-                </div>
-               </div>
-                <form hidden action="{{url('dashboard/paymentError')}}" method="post">
-                    @csrf
-                  <button id="paymentError">click</button>
-                </form>
-                <form action="{{url('dashboard/payment')}}" method="post" id="courseReg" class="content">
-                    <div class="text-center">
-                        <h2>PAYMENT</h2>
-                    </div>
-                    <div class="table">
-                        <table id="table">
-                            <th>S/N</th>
-                            <th>AMOUNT</th>
-                            <th>LEVEL</th>
-                            <th>DEADLINE DATE</th>
-                            <th>PENALTY CHARGE</th>
-                        </table>
-                    </div>
+                </div>`;
+            document.getElementById('body').innerHTML += `<div class="content">
+                   <h3>You have submitted all assigments and projects</h3>
+                </div>`;
+        }
+        if (assignment.length > 0) {
+            document.getElementById('body').innerHTML = "";
+            document.getElementById('body').innerHTML += `<div class="menu">
+                    <button><a href="/dashboard/completeReg">Complete Registration</a></button>
+                    <button><a href="/dashboard/courseReg">Course Registration</a></button>
+                    <button><a href="/dashboard/timetable">Timetable</a></button>
+                    <button><a href="/dashboard/payment">Payment/Receipt</a></button>
+                    <button><a href="/dashboard/assignment">Assignment and Project</a></button>
+                    <button>Result</button>
+                </div>`;
+            document.getElementById('body').innerHTML += ` <form action="{{'/dashboard/assignment'}}" method="post" id="courseReg" class="content" enctype="multipart/form-data">
                     <div id="mycourse">
+                        <h5 class="mb-5">Note: Zip either your Assignment or Project folder and let the folder name be your name</h5>
                         <div id="theCourse" hidden>
 
                         </div>
-                        @if($su=Session::get('error'))
-                        <div class="alert alert-danger">
-                            <strong>{{$su}}</strong>
-                        </div>
-                        @endif
                         <div class="mb-3">
-                            <span>Message</span>
+                            <div class="assignment mb-3" >
+                                <input id="" readonly value="COURSE:${assignment[index].courseCode}" type="text" name="course">
+                                <input id="" readonly value="LECTURER:${assignment[index].lecturer}" type="text" name="course">
+                                <input id="" readonly value="TAG:${assignment[index].tag}" type="text" name="course">
+                                <h3 class="mt-4">${assignment[index].question}</h3>
+                            </div>
+                            <span>Select Your Assignment file</span>
                             <div>
-                                <input id="course" type="text" readonly name="course"
-                                value="Remember you're making use of online payment gateway">
-                                <input hidden type="text" name="amount" id="amount">
-                                <input hidden type="text" name="reference" id="reference">
+                                <input id="course" type="file" name="answer"
+                                    value="{{old('answer')}}" class="{{$errors->has('answer') ? 'is-inavlid' : '' }}">
+                                <input hidden type="text" name="courseCode" value="${assignment[index].courseCode}" id="courseCode">
+                                <input hidden type="text" name="lecturer" value="${assignment[index].lecturer}" id="lecturer">
+                                <input hidden type="text" name="tag" value="${assignment[index].tag}" id="tag">
+                                <input hidden type="text" name="question" value="${assignment[index].question}" id="tag">
                                 @csrf
-                               <button id="payit" hidden>Click</button>
-                                <button id="course" onclick="handlePayment()" type="button" class="btn btn-primary">Make
-                                    Payment</button>
+                                <button id="course" class="btn btn-primary">Submit</button>
+                                <button id="next" onclick="handleNext()""  type="button" class="btn btn-primary ml-4">Next</button>
+                                <button id="prev" onclick="handlePrev()"  type="button" class="btn btn-primary ml-4">Prev</button>
+                                @error('answer')
+                                <div>
+                                    <small class="text-danger">{{$message}}</small>
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
-
-                </form>
-
-            </div>
-            </div>
-        </main>
-    </main>
-    <script src="https://js.paystack.co/v1/inline.js"></script>
-</body>
-
-</html>
-<script>
-    let userInfo=@json($userInfo);
-    let paymentInfo =@json($paymentInfo);
-    let payment =@json($payment);
-    console.log(payment);
-    let email =@json($email);
-    let index=userInfo.level;
-    if (payment.length<index && payment.length!=0) {
-        document.getElementById('courseReg').hidden=false;
+                </form>`
+            if (assignment.length == 1) {
+            document.getElementById('next').setAttribute('disabled', 'true');
+            document.getElementById('prev').setAttribute('disabled', 'true');
+        }
+        else if (assignment.length > 1 && index == 0) {
+            document.getElementById('prev').setAttribute('disabled', 'true');
+        }
+        else if (index + 1 == assignment.length) {
+            document.getElementById('next').setAttribute('disabled', 'true');
+        }
+        else {
+            document.getElementById('next').removeAttribute('disabled');
+            document.getElementById('prev').removeAttribute('disabled');
+        }
+        }
     }
-    else if(payment.length<index && payment.length==0){
-        document.getElementById('courseReg').hidden=false;
-        document.getElementById('mytable').hidden=true;
-    }else{
-        document.getElementById('courseReg').hidden=true;
-        document.getElementById('mytable').hidden=false;
-    }
-    for (let i = 0; i < paymentInfo.length; i++) {
-        let amount = new Intl.NumberFormat("en-Us", { currency: "NGN", style: "currency" }).format(paymentInfo[i].amount);
-        let penalty = new Intl.NumberFormat("en-Us", { currency: "NGN", style: "currency" }).format(paymentInfo[i].penalty);
-        document.getElementById('table').innerHTML += `<tr><td>${i + 1}</td><td>${amount}</td><td>${paymentInfo[i].level}</td><td>${paymentInfo[i].deadline}</td><td>${penalty}</td></tr>`
+    display();
 
+    function handleNext() {
+        index++;
+        console.log(index, assignment.length);
+        display();
     }
-    for (let i = 0; i < payment.length; i++) {
-        let amount = new Intl.NumberFormat("en-Us", { currency: "NGN", style: "currency" }).format(payment[i].amount);
-        document.getElementById('newtable').innerHTML += `<tr><td>${i + 1}</td><td>${amount}</td><td>${payment[i].level}</td><td>${payment[i].payment_date}</td><td>${payment[i].reference}</td></tr>`
-
+    function handlePrev() {
+        index--;
+        display();
     }
-    function handlePayment() {
-        let refer
-        var handler = PaystackPop.setup({
-            key: 'pk_test_b151276bd6786f5c094f1c35d7ee0008f073fb2d',
-            email: email,
-            amount: paymentInfo[0].amount * 100,
-            currency: 'NGN',
-            callback: function (response) {
-                let reference = response.reference;
-                //this happens after the payment is completed successfully
-                document.getElementById('amount').value=paymentInfo[0].amount;
-                document.getElementById('reference').value=reference;
-                document.getElementById('payit').click();
-            },
-            onClose: function () {
-                document.getElementById('paymentError').click();
-            },
-        });
-        handler.openIframe();
-    }
-
 
 
 </script>

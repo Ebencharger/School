@@ -275,7 +275,7 @@
                     <button><a href="/dashboard/courseReg">Course Registration</a></button>
                     <button><a href="/dashboard/timetable">Timetable</a></button>
                     <button><a href="/dashboard/payment">Payment/Receipt</a></button>
-                    <button>Assignment and Project</button>
+                    <button><a href="/dashboard/assignment">Assignment and Project</a></button>
                     <button>Result</button>
                 </div>
                 <form action="{{url('completeReg')}}" method="post" enctype="multipart/form-data" id="completeReg" class="content">

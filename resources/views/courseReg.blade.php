@@ -287,7 +287,7 @@
                     <button><a href="/dashboard/courseReg">Course Registration</a></button>
                     <button><a href="/dashboard/timetable">Timetable</a></button>
                     <button><a href="/dashboard/payment">Payment/Receipt</a></button>
-                    <button>Assignment and Project</button>
+                    <button><a href="/dashboard/assignment">Assignment and Project</a></button>
                     <button>Result</button>
                 </div>
                 <form action="{{'/dashboard/courseReg'}}" method="post" id="courseReg" class="content">
@@ -447,15 +447,6 @@
                 document.getElementById('theCourse').hidden = true;
             }
 
-            // else{
-            //     document.getElementById('course').value = course[params].courseCode;
-            //     document.getElementById('courseCode').value = course[params].courseCode;
-            //     document.getElementById('courseTitle').value = course[params].courseTitle;
-            //     document.getElementById('unit').value = course[params].unit;
-            //     document.getElementById('theCourse').hidden = true; 
-            // }
-
-
         }
                 
         }
@@ -463,25 +454,5 @@
 
 
     }
-    // handleTypeCourse = (params) => {
-    //     let code = params.value;
-    //     if (params.value != "") {
-    //         for (let i = 0; i < course.length; i++) {
-    //             let myword = new RegExp(code, 'gi');
-    //             let by = course[i].courseCode.match(myword);
-    //             if (course[i].courseCode.includes(by)) {
-    //                 document.getElementById('course').value = course[i].courseCode;
-    //                 seenTwo = true;
-    //                 setTimeout(() => {
-    //                     seenTwo = false;
-    //                 }, 1000);
-    //             }
-    //             else if (i == course.length - 1 && seenTwo == false) {
-    //                 document.getElementById('theCourse').innerHTML = "";
-    //                 document.getElementById('theCourse').innerHTML += `<h5>NO FOUND<h5>`;
-    //             }
-    //         }
-    //     }
-    // }
 </script>
 @endguest

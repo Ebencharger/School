@@ -176,6 +176,33 @@ Route::prefix('dashboard')->group(function(){
         session()->flash('error','Something went wrong. Please try again!');
         return redirect()->to('dashboard/payment');
     });
+    Route::post('/assignment', function(Request $request){
+     $request->validate([
+        'answer' => "required"
+     ]);
+     $fileName=auth()->user()->fullname.mt_rand(1000,9000);
+     $extension=$request->answer->extension();
+     $assignment=$fileName.'.'.$extension;
+     $path=$request->answer->storeAs('/public/submission', $assignment);
+     $complete=DB::table('submission')->insert(
+        [
+        'student'=>auth()->user()->fullname,
+        'user_id'=>auth()->user()->id,
+        'courseCode'=>$request->courseCode,
+        'lecturer'=>$request->lecturer,
+        'question'=>$request->question,
+        'tag'=>$request->tag,
+        'file'=>$path,
+      ]);
+if ($complete) {
+  return redirect()->to('dashboard/assignment');
+}
+    });
+    Route::get('/assignment', function(){
+        $submission=DB::table('submission')->where('student', auth()->user()->fullname)->get();
+        $assignment=DB::table('assignment')->where('level', auth()->user()->level)->get();
+        return view('assignment')->with(['assignment'=>$assignment, 'submit'=>$submission]);
+    });
 });
 
 

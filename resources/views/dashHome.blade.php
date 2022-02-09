@@ -82,7 +82,7 @@
         pay any of your tuition fees by hand and if need be, we would let you know. Your class starts the
         day you make your payment and strict attendance will be taken. Be disciplined and focused, for we
         <b>SCICT</b> love and care for students who are focused. <br>
-        Signed by <a href="www.ebencharger@wordpress.com">Ebencharger</a>, C.E.O SCICT.
+        Signed by <a href="https://ebencharger4real.wordpress.com/">Ebencharger</a>, C.E.O SCICT.
     
         <p class="mt-4 font-weight-bold text-primary">OUR INSTRUCTORS</p>
         <div class="picture">
