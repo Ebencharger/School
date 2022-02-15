@@ -111,7 +111,6 @@
         }
 
         .btn-primary:hover a {
-            text-decoration: none;
             color: black
         }
 
@@ -220,6 +219,7 @@
             border-collapse: collapse
         }
 
+
         th,
         td,
         tr {
@@ -244,10 +244,26 @@
             border: none;
             border-bottom: 2px solid #007bff;
         }
-       .menu button a{
+
+        .menu button a {
             text-decoration: none;
             color: black;
-       }
+        }
+
+        #theCourse {
+            width: 200px;
+            height: 400px;
+            overflow-y: scroll;
+            background-color: white;
+            box-shadow: 0px 0px 4px black;
+            position: absolute;
+            padding: 20px;
+            margin-top: 63px;
+        }
+
+        #theCourse H5 {
+            margin-bottom: 23px;
+        }
     </style>
 </head>
 
@@ -274,7 +290,44 @@
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
                     <button><a href="/dashboard/result">Result</a></button>
                 </div>
-                @extends('dashHome');
+                <form action="" method="post" id="courseReg" class="content">
+                    <div id="errorReg" hidden class="alert alert-danger">
+                        <h3 class="text-danger">You can not register this course now</h3>
+                    </div>
+                    <div id="errorReg2" hidden class="alert alert-danger">
+                        <h3 class="text-danger">You have registered the course already!</h3>
+                    </div>
+                    <div id="mycourse">
+                        <div id="theCourse" hidden>
+
+                        </div>
+                        <div class="mb-3">
+                            <span>Enter Result's Level</span>
+                            <div>
+                                <input id="course" type="text" name="level">
+                                @csrf
+                                <button id="course" type="button" onclick="handleResult(this)" class="btn btn-primary">SEARCH RESULT</button>
+                                <div id="message" hidden>
+                                    <small class="text-danger">Required a value for level field</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h2>RESULT</h2>
+                    </div>
+                    <div class="table" id="myTable">
+                        <table id="table">
+                            <th>S/N</th>
+                            <th>COURSE CODE</th>
+                            <th>LEVEL</th>
+                            <th>SCORE</th>
+                            <th>GRADE</th>
+                        </table>
+                    </div>
+
+                </form>
+
             </div>
             </div>
         </main>
@@ -283,7 +336,55 @@
 
 </html>
 <script>
+    let presentResult=@json($presentResult);
+    let allResult=@json($allResult);
+    let seen=false;
+     console.log(allResult);
+    function display(params) {
+        document.getElementById('table').innerHTML="";
+        document.getElementById('table').innerHTML+=` <table id="table">
+                            <th>S/N</th>
+                            <th>COURSE CODE</th>
+                            <th>LEVEL</th>
+                            <th>SCORE</th>
+                            <th>GRADE</th>
+                        </table>`;
+        for (let i = 0; i < presentResult.length; i++) {
+        document.getElementById('table').innerHTML += `<tr><td>${i + 1}</td><td>${presentResult[i].courseCode}</td><td>${presentResult[i].level}</td><td>${presentResult[i].score}</td><td>${presentResult[i].grade}</td></tr>`
+    }
+    }
 
-  
+    display();
+
+    function handleResult(){
+        if (document.getElementById('course').value=="") {
+            document.getElementById('message').hidden=false;
+            return;
+        }
+        for (let i = 0; i < allResult.length; i++) {
+          if (Number(document.getElementById('course').value)==allResult[i].level) {
+              seen=true;
+              document.getElementById('message').hidden=true;
+              document.getElementById('table').innerHTML="";
+              document.getElementById('table').innerHTML+=` <table id="table">
+                            <th>S/N</th>
+                            <th>COURSE CODE</th>
+                            <th>LEVEL</th>
+                            <th>SCORE</th>
+                            <th>GRADE</th>
+                        </table>`;
+        document.getElementById('table').innerHTML += `<tr><td>${1}</td><td>${allResult[i].courseCode}</td><td>${allResult[i].level}</td><td>${allResult[i].score}</td><td>${allResult[i].grade}</td></tr>`
+              setTimeout(() => {
+                  seen=false;
+              }, 1000);
+          }
+          else if (i==allResult.length-1 && seen==false) {
+            document.getElementById('message').hidden=false;
+            document.getElementById('message').innerHTML="";
+            document.getElementById('message').innerHTML=`<small class="text-danger">No result found for this level</small>`
+          } 
+        }
+    }
+
 </script>
 @endguest

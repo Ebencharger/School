@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sign up</title>
+    <title>Login</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
                padding-left: 20px;
                width: 50%;
                margin-right: 10%;
-               margin-top: 15%;
+               margin-top: 18%;
            }
            .login form h2{
                position: absolute;
@@ -54,7 +54,7 @@
            .header a{
                text-decoration: none;
            }
-           #register input {
+           #login input {
             outline: none;
             width: 600px;
             padding: 4px;
@@ -70,22 +70,18 @@
 
 <body>
     <div class="header text-primary font-weight-bold"><a href="/">HOME</a></div>
-    <div id="register"  class="login">
-        <form action="{{route('signup')}}" method="post">
-          <h2>SIGNUP PAGE</h2>
-          <span>Full Name:</span>
-         <div class="mt-2">
-          <input type="text" value="{{old('fullname')}}" name="fullname" class="form-group form-control-lg w-100 {{$errors->has('fullname') ? 'is-invalid': ''}}" >
-          @error('fullname')
-              <span class="text-danger">{{$message}}</span>
-          @enderror
-         </div>
+    <div id="login" class="login">
+        <form action="{{url('instructor/login')}}" method="post">
+          <h2>LOGIN PAGE</h2>
           <span>Email:</span>
          <div class="mt-2">
           <input type="text" value="{{old('email')}}" name="email" class="form-group form-control-lg w-100 {{$errors->has('email') ? 'is-invalid': ''}}" >
           @error('email')
               <span class="text-danger">{{$message}}</span>
           @enderror
+          @if ($u=Session::get('error'))
+          <span class="text-danger">{{$u}}</span>
+          @endif
          </div>
           <span>Password:</span>
          <div class="mt-2">
@@ -93,21 +89,20 @@
           @error('password')
               <span class="text-danger">{{$message}}</span>
           @enderror
-         </div>
-         <div class="mt-2">
-             <button class="btn btn-primary w-100" id="reg">REGISTER</button>
+          @if ($u=Session::get('error'))
+          <span class="text-danger">{{$u}}</span>
+          @endif
          </div>
          @csrf
          <div class="mt-2">
-            <a href="#">Forgot Password? Click here</a>
+             <button class="btn btn-primary w-100">LOGIN</button>
          </div>
         </form>
         <div class="image">
-          <img src="{{url('images/image_6.jpg')}}" alt="">
+          <img src="{{url('images/image_1.jpg')}}" alt="">
         </div>
       </div>
 </body>
-
 </html>
 <script>
 

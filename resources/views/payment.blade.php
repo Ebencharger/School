@@ -295,7 +295,7 @@
                     <button><a href="/dashboard/timetable">Timetable</a></button>
                     <button><a href="/dashboard/payment">Payment/Receipt</a></button>
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
-                    <button>Result</button>
+                    <button><a href="/dashboard/result">Result</a></button>
                 </div>
                <div class="newcontent" id="mytable">
                 @if($su=Session::get('success'))

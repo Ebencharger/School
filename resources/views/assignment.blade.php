@@ -307,7 +307,7 @@
     let seen = false;
     let index = 0;
     number = [];
-    if (submission.length > 0) {
+    if (submission.length > 0 && assignment.length>0) {
         for (let i = 0; i < submission.length; i++) {
             console.log(i);
             if (assignment[i].question==submission[i].question) {
@@ -333,10 +333,10 @@
                     <button><a href="/dashboard/timetable">Timetable</a></button>
                     <button><a href="/dashboard/payment">Payment/Receipt</a></button>
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
-                    <button>Result</button>
+                      <button><a href="/dashboard/result">Result</a></button>
                 </div>`;
             document.getElementById('body').innerHTML += `<div class="content">
-                   <h3>You have submitted all assigments and projects</h3>
+                   <h3>You don't have any project now</h3>
                 </div>`;
         }
         if (assignment.length > 0) {
@@ -347,7 +347,7 @@
                     <button><a href="/dashboard/timetable">Timetable</a></button>
                     <button><a href="/dashboard/payment">Payment/Receipt</a></button>
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
-                    <button>Result</button>
+                      <button><a href="/dashboard/result">Result</a></button>
                 </div>`;
             document.getElementById('body').innerHTML += ` <form action="{{'/dashboard/assignment'}}" method="post" id="courseReg" class="content" enctype="multipart/form-data">
                     <div id="mycourse">

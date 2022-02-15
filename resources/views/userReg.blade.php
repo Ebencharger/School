@@ -276,7 +276,7 @@
                     <button><a href="/dashboard/timetable">Timetable</a></button>
                     <button><a href="/dashboard/payment">Payment/Receipt</a></button>
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
-                    <button>Result</button>
+                    <button><a href="/dashboard/result">Result</a></button>
                 </div>
                 <form action="{{url('completeReg')}}" method="post" enctype="multipart/form-data" id="completeReg" class="content">
                     <div class="profile2">
@@ -419,6 +419,7 @@
     let url=@json($picture);
     console.log(url);
     document.getElementById('fullname').value = userData.fullname;
+    console.log(userData.image);
     if (userData.dob) {
         document.getElementById('dob').value = userData.dob;
         document.getElementById('country').value = userData.country;

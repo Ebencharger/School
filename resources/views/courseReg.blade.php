@@ -1,6 +1,6 @@
 @guest
 <h1>YOU HAPPENED NOT TO HAVE LOGGED IN... login from here <a href="/login">Now</a></h1>
-@else
+@else                 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{url('/bootstrap.css')}}">
+    <script defer src="https://unpkg.com/alpinejs@3.8.1/dist/cdn.min.js"></script>
 
     <!-- Styles -->
     <style lang="scss">
@@ -266,7 +267,7 @@
         }
     </style>
 </head>
-
+@if(auth()->user()->email_verified_at)  
 <body>
     <main>
         <main>
@@ -288,8 +289,9 @@
                     <button><a href="/dashboard/timetable">Timetable</a></button>
                     <button><a href="/dashboard/payment">Payment/Receipt</a></button>
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
-                    <button>Result</button>
+                    <button><a href="/dashboard/result">Result</a></button>
                 </div>
+                <div x-data={{$payment}}>
                 <form action="{{'/dashboard/courseReg'}}" method="post" id="courseReg" class="content">
                     <div id="errorReg" hidden class="alert alert-danger">
                         <h3 class="text-danger">You can not register this course now</h3>
@@ -310,7 +312,6 @@
                                 <input hidden type="text" name="courseTitle" id="courseTitle">
                                 <input hidden type="text" name="level" id="level">
                                 <input hidden type="text" name="unit" id="unit">
-                                @csrf
                                 <button id="course" class="btn btn-primary">ADD
                                     COURSE</button>
                                 @error('course')
@@ -318,6 +319,7 @@
                                     <small class="text-danger">{{$message}}</small>
                                 </div>
                                 @enderror
+                                @csrf
                             </div>
                         </div>
                     </div>
@@ -333,9 +335,9 @@
                             <th>UNIT</th>
                         </table>
                     </div>
-
                 </form>
 
+            </div>
             </div>
             </div>
         </main>
@@ -455,4 +457,9 @@
 
     }
 </script>
+@else
+<h4 class="ml-3 mt-3">You are not granted permission to this content unless you verified your email</h4>
+<button class="btn btn-primary ml-4"><a href="/dashboard">Go back</a></button>
+<button class="btn btn-primary ml-4"><a href="/verify">Verify Email now</a></button>
+@endif
 @endguest

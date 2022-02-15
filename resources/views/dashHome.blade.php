@@ -1,6 +1,3 @@
-@guest
-<h1>YOU HAPPENED NOT TO HAVE LOGGED IN... login from here <a href="/login">Now</a></h1>
-@else
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -140,7 +137,7 @@
 <script>
    
 </script>
-@endguest
+
 
 
 

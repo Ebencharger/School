@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('dob')->nullable();
             $table->string('country')->nullable();
-            $table->string('level')->nullable();
+            $table->integer('level');
             $table->string('state')->nullable();
             $table->string('phoneno')->nullable();
             $table->string('nok')->nullable();
