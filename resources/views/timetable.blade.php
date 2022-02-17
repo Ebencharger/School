@@ -266,7 +266,7 @@
         }
     </style>
 </head>
-
+@if(auth()->user()->email_verified_at)
 <body>
     <main>
         <main>
@@ -321,4 +321,9 @@
 
     }
 </script>
+@else
+<h4 class="ml-3 mt-3">You are not granted permission to this content unless you verified your email</h4>
+<button class="btn btn-primary ml-4"><a href="/dashboard">Go back</a></button>
+<button class="btn btn-primary ml-4"><a href="/verify">Verify Email now</a></button>
+@endif
 @endguest

@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{url('/bootstrap.css')}}">
+    <script defer src="https://unpkg.com/alpinejs@3.8.1/dist/cdn.min.js"></script>
 
     <!-- Styles -->
     <style lang="scss">
@@ -155,6 +156,9 @@
             padding: 30px;
             font-size: 17px;
         }
+        .adjust{
+            margin-top: 100px !important
+        }
 
         .body .content p {
             text-decoration: underline
@@ -202,6 +206,7 @@
             right: 40px;
             top: 200px;
         }
+
         .profile2 {
             position: absolute;
             right: 50px;
@@ -248,13 +253,14 @@
             border: none;
             border-bottom: 2px solid #007bff;
         }
-        .menu button a{
+
+        .menu button a {
             text-decoration: none;
             color: black;
-       }
+        }
     </style>
 </head>
-
+@if(auth()->user()->email_verified_at)
 <body>
     <main>
         <main>
@@ -278,134 +284,143 @@
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
                     <button><a href="/dashboard/result">Result</a></button>
                 </div>
-                <form action="{{url('completeReg')}}" method="post" enctype="multipart/form-data" id="completeReg" class="content">
-                    <div class="profile2">
-                        <img src="" alt="No image" id="myImage">
-                        <input type="file" id="image" hidden name="image">
-                    </div>
-                    <div class="profile">
-                        <button id="imageBtn" class="btn btn-primary" type="button" onclick="handleImage()">Change Picture</button>
-                    </div>
-                    <div>
-                        <span>Full Name:</span>
-                        <div>
-                            <input id="fullname" readonly type="text">
-                        </div>
-                    </div>
-                    <div>
-                        <span>Email:</span>
-                        <div>
-                            <input readonly type="text" value={{auth()->user()->email}}>
-                        </div>
-                    </div>
-                    <div>
-                        <span>Level:</span>
-                        <div>
-                            <input readonly type="text" value={{auth()->user()->level}}>
-                        </div>
-                    </div>
-                    <div>
-                        <span>Program:</span>
-                        <div>
-                            <input id="program" type="text" value="{{old('program')}}" name="program"
-                                class="{{$errors->has('progrma') ? 'is-inavlid' : '' }}">
-                            @error('program')
-                            <div>
-                                <small class="text-danger">{{$message}}</small>
+              
+                        <form action="{{url('completeReg')}}" method="post" enctype="multipart/form-data"
+                            id="completeReg" class="content">
+                            <div class="profile2">
+                                <img src="" alt="No image" id="myImage">
+                                <input type="file" id="image" hidden name="image">
                             </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div>
-                        <span>Date of birth:</span>
-                        <div>
-                            <input id="dob" type="date" value="{{old('dob')}}" name="dob"
-                                class="{{$errors->has('dob') ? 'is-inavlid' : '' }}">
-                            @error('dob')
-                            <div>
-                                <small class="text-danger">{{$message}}</small>
+                            <div class="profile">
+                                <button id="imageBtn" class="btn btn-primary" type="button"
+                                    onclick="handleImage()">Change Picture</button>
                             </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div>
-                        <span>Country:</span>
-                        <div>
-                            <input id="country" type="text" name="country" value="{{old('country')}}"
-                                class="{{$errors->has('dob') ? 'is-inavlid' : '' }}">
-                            @error('country')
                             <div>
-                                <small class="text-danger">{{$message}}</small>
+                                <span>Full Name:</span>
+                                <div>
+                                    <input id="fullname" value=@json($data->fullname) readonly type="text">
+                                </div>
                             </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div>
-                        <span>State:</span>
-                        <div>
-                            <input id="state" type="text" name="state" value="{{old('state')}}"
-                                class="{{$errors->has('state') ? 'is-inavlid' : '' }}">
-                            @error('state')
                             <div>
-                                <small class="text-danger">{{$message}}</small>
+                                <span>Email:</span>
+                                <div>
+                                    <input readonly type="text" value={{auth()->user()->email}}>
+                                </div>
                             </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div>
-                        <span>Phone Number:</span>
-                        <div>
-                            <input id="phoneno" type="text" name="phoneno" value="{{old('phone')}}"
-                                class="{{$errors->has('phoneno') ? 'is-inavlid' : '' }}">
-                            @error('phoneno')
                             <div>
-                                <small class="text-danger">{{$message}}</small>
+                                <span>Level:</span>
+                                <div>
+                                    <input readonly type="text" value={{auth()->user()->level}}>
+                                </div>
                             </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div>
-                        <span>Next of kin:</span>
-                        <div>
-                            <input id="nok" type="text" name="nok" value="{{old('nok')}}"
-                                class="{{$errors->has('nok') ? 'is-inavlid' : '' }}">
-                            @error('nok')
                             <div>
-                                <small class="text-danger">{{$message}}</small>
+                                <span>Program:</span>
+                                <div>
+                                    <input id="program" type="text" value="{{old('program')}}" name="program"
+                                        class="{{$errors->has('progrma') ? 'is-inavlid' : '' }}">
+                                    @error('program')
+                                    <div>
+                                        <small class="text-danger">{{$message}}</small>
+                                    </div>
+                                    @enderror
+                                </div>
                             </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div>
-                        <span>Address of Next of kin:</span>
-                        <div>
-                            <input id="addressNok" type="text" name="addressNok" value="{{old('addressNok')}}"
-                                class="{{$errors->has('addressNok') ? 'is-inavlid' : '' }}">
-                            @error('addressNok')
                             <div>
-                                <small class="text-danger">{{$message}}</small>
+                                <span>Date of birth:</span>
+                                <div>
+                                    <input id="dob" type="date" value="{{old('dob')}}" name="dob"
+                                        class="{{$errors->has('dob') ? 'is-inavlid' : '' }}">
+                                    @error('dob')
+                                    <div>
+                                        <small class="text-danger">{{$message}}</small>
+                                    </div>
+                                    @enderror
+                                </div>
                             </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div>
-                        <span>Phone number of Next of kin:</span>
-                        <div>
-                            <input id="phoneNok" type="text" name="phoneNok" value="{{old('phoneNok')}}"
-                                class="{{$errors->has('phoneNok') ? 'is-inavlid' : '' }}">
-                            @error('phoneNok')
                             <div>
-                            </div><small class="text-danger">{{$message}}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    @csrf
-                    <div>
-                        <button id="complete" class="btn btn-primary">Complete Registration</button>
-                    </div>
-                
-                </form>
-                
+                                <span>Country:</span>
+                                <div>
+                                    <input id="country" type="text" name="country" value="{{old('country')}}"
+                                        class="{{$errors->has('dob') ? 'is-inavlid' : '' }}">
+                                    @error('country')
+                                    <div>
+                                        <small class="text-danger">{{$message}}</small>
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div>
+                                <span>State:</span>
+                                <div>
+                                    <input id="state" type="text" name="state" value="{{old('state')}}"
+                                        class="{{$errors->has('state') ? 'is-inavlid' : '' }}">
+                                    @error('state')
+                                    <div>
+                                        <small class="text-danger">{{$message}}</small>
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div>
+                                <span>Phone Number:</span>
+                                <div>
+                                    <input id="phoneno" type="text" name="phoneno" value="{{old('phone')}}"
+                                        class="{{$errors->has('phoneno') ? 'is-inavlid' : '' }}">
+                                    @error('phoneno')
+                                    <div>
+                                        <small class="text-danger">{{$message}}</small>
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div>
+                                <span>Next of kin:</span>
+                                <div>
+                                    <input id="nok" type="text" name="nok" value="{{old('nok')}}"
+                                        class="{{$errors->has('nok') ? 'is-inavlid' : '' }}">
+                                    @error('nok')
+                                    <div>
+                                        <small class="text-danger">{{$message}}</small>
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div>
+                                <span>Address of Next of kin:</span>
+                                <div>
+                                    <input id="addressNok" type="text" name="addressNok" value="{{old('addressNok')}}"
+                                        class="{{$errors->has('addressNok') ? 'is-inavlid' : '' }}">
+                                    @error('addressNok')
+                                    <div>
+                                        <small class="text-danger">{{$message}}</small>
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div>
+                                <span>Phone number of Next of kin:</span>
+                                <div>
+                                    <input id="phoneNok" type="text" name="phoneNok" value="{{old('phoneNok')}}"
+                                        class="{{$errors->has('phoneNok') ? 'is-inavlid' : '' }}">
+                                    @error('phoneNok')
+                                    <div>
+                                    </div><small class="text-danger">{{$message}}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            @csrf
+                            <div>
+                                <button id="complete" class="btn btn-primary">Complete Registration</button>
+                            </div>
+
+                        </form>
+              
+             
+                        <form id="otherCourse" class="content adjust">
+                            <h3>You are not allowed! <a href="/dashboard/payment">Make payment first</a></h3>
+                        </form>
+                   
+
             </div>
             </div>
         </main>
@@ -415,11 +430,14 @@
 </html>
 <script>
     let userData =@json($data);
-    console.log(userData);
-    let url=@json($picture);
-    console.log(url);
-    document.getElementById('fullname').value = userData.fullname;
-    console.log(userData.image);
+    let url =@json($picture);
+    let payment=@json($payment);
+    // console.log(url);
+    // console.log(userData.image);
+    // console.log(userData);
+    if (payment.length!=0) {
+        document.getElementById('completeReg').hidden=false;
+        document.getElementById('otherCourse').hidden=true;
     if (userData.dob) {
         document.getElementById('dob').value = userData.dob;
         document.getElementById('country').value = userData.country;
@@ -443,15 +461,17 @@
         document.getElementById('program').setAttribute('readonly', 'true');
     }
     let image = document.getElementById('image');
-    handleImage= () => {
-       image.click();
+    handleImage = () => {
+        image.click();
     }
-   
-  
+    }else{
+        document.getElementById('completeReg').hidden=true;
+        document.getElementById('otherCourse').hidden=false;
+    }
 </script>
+@else
+<h4 class="ml-3 mt-3">You are not granted permission to this content unless you verified your email</h4>
+<button class="btn btn-primary ml-4"><a href="/dashboard">Go back</a></button>
+<button class="btn btn-primary ml-4"><a href="/verify">Verify Email now</a></button>
+@endif
 @endguest
-
-
-
-
-

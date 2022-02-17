@@ -68,7 +68,7 @@ Route::post('/signup', function (Request $request) {
         'updated_at' => now(),
     ]);
     Auth::loginUsingId($user->id);
-    return "<a href='http://127.0.0.1:8000/verify'>YOUR OTP is <b>$code</b>Click here to verify your email</a>";
+    return "<a href='http://127.0.0.1:8000/verify'>YOUR OTP is <b>$code</b> Click here to verify your email</a>";
     //    $message="Hello ".$request->name.", click this link to verify your email"."<a href='http://127.0.0.1:8000/emailVerification'>VERIFY EMAIL</a>";
     //    $data=['name'=> "Ebenezer", 'subject'=>'EMAIL VERIFICATION', 'view'=>'alert', 'message'=>$message];
     //    $r=new alert($data);
@@ -148,16 +148,17 @@ Route::get('/verify', function () {
 
 Route::prefix('dashboard')->group(function () {
     Route::get('/completeReg', function () {
+        $payment = DB::table('payment')->where([['user_id', auth()->user()->id], ['level', auth()->user()->level]])->get();
         $userPic = auth()->user()->image;
         $url = Storage::url($userPic);
-        return view('userReg')->with(['data' => auth()->user(), 'picture' => $url]);
+        return view('userReg')->with(['data' => auth()->user(), 'picture' => $url, 'payment'=>$payment]);
     });
     Route::get('/courseReg', function () {
         $payment = DB::table('payment')->where([['user_id', auth()->user()->id], ['level', auth()->user()->level]])->get();
         // $level = Carbon::parse(Carbon::now())->diffInMonths(Carbon::parse(auth()->user()->created_at));
         $course = DB::table('course')->where([['level', auth()->user()->level], ['program', auth()->user()->program]])->get();
         $regCourse = DB::table('coursereg')->where([['user_id', auth()->user()->id], ['level', auth()->user()->level]])->get();
-        return view('courseReg')->with(['course' => $course, 'regCourse' => $regCourse, 'payment' => $payment, 'level' => auth()->user()->level]);
+        return view('courseReg')->with(['course' => $course, 'regCourse' => $regCourse, 'payment'=>$payment, 'level' => auth()->user()->level]);
     });
     Route::post('/courseReg', function (Request $request) {
         $request->validate([
@@ -175,8 +176,9 @@ Route::prefix('dashboard')->group(function () {
     });
 
     Route::get('/timetable', function () {
+        $payment = DB::table('payment')->where([['user_id', auth()->user()->id], ['level', auth()->user()->level]])->get();
         $timetable = DB::table('timetable')->where([['program', auth()->user()->program], ['level', auth()->user()->level]])->get();
-        return view('timetable')->with(['timetable' => $timetable]);
+        return view('timetable')->with(['timetable' => $timetable, 'payment'=>$payment]);
     });
     Route::post('/payment', function (Request $request) {
         $paid = DB::table('payment')->insert([
@@ -224,9 +226,10 @@ Route::prefix('dashboard')->group(function () {
         }
     });
     Route::get('/assignment', function () {
+        $payment = DB::table('payment')->where([['user_id', auth()->user()->id], ['level', auth()->user()->level]])->get();
         $submission = DB::table('submission')->where('student', auth()->user()->fullname)->get();
         $assignment = DB::table('assignment')->where('level', auth()->user()->level)->get();
-        return view('assignment')->with(['assignment' => $assignment, 'submit' => $submission]);
+        return view('assignment')->with(['assignment' => $assignment, 'submit' => $submission, 'payment'=>$payment]);
     });
 
     Route::post('/result', function (Request $request) {
@@ -237,9 +240,10 @@ Route::prefix('dashboard')->group(function () {
     });
 
     Route::get('/result', function () {
+        $payment = DB::table('payment')->where([['user_id', auth()->user()->id], ['level', auth()->user()->level]])->get();
         $presentResult = DB::table('result')->where([['name', auth()->user()->fullname], ['user_id', auth()->user()->id], ['level', auth()->user()->level]])->get();
         $allResult = DB::table('result')->where([['name', auth()->user()->fullname], ['user_id', auth()->user()->id]])->get();
-        return view('result')->with(['allResult' => $allResult, 'presentResult' => $presentResult]);
+        return view('result')->with(['allResult' => $allResult, 'presentResult' => $presentResult, 'payment'=>$payment]);
     });
 });
 

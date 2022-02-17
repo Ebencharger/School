@@ -102,6 +102,247 @@
         .btn-primary:hover a{
            color: black
         }
+
+        @media(max-width:912px){
+            .body img {
+            width: 100%;
+            margin-top: -50px;
+            height: 50vh;
+        }
+        .body .overlay {
+            width: 100%;
+            height: 100vh;
+            margin-top: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .overlay h3 {
+            font-weight: bold !important;
+            color: white;
+            font-size: 33px;
+            text-shadow: 0px 0px 3px black;
+        }
+        }
+
+        @media(max-width:820px){
+            .body img {
+            width: 100%;
+            margin-top: -50px;
+            height: 50vh;
+        }
+        .body .overlay {
+            width: 100%;
+            height: 100vh;
+            margin-top: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .overlay h3 {
+            font-weight: bold !important;
+            color: white;
+            font-size: 33px;
+            text-shadow: 0px 0px 3px black;
+        }
+        }
+        @media(max-width:720px){
+            .body img {
+            width: 100%;
+            margin-top: 40px;
+            height: 50vh;
+        }
+        .body .overlay {
+            width: 100%;
+            height: 100vh;
+            margin-top: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .header .right h2{
+                font-size: 23px !important;
+            }
+        .overlay h3 {
+            font-weight: bold !important;
+            color: white;
+            font-size: 23px;
+            text-shadow: 0px 0px 3px black;
+        }
+        }
+        @media(max-width:700px){
+            .body img {
+            width: 100%;
+            margin-top: 30px;
+            height: 50vh;
+        }
+        .body .overlay {
+            width: 100%;
+            height: 100vh;
+            margin-top: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .header .right h2{
+                font-size: 23px !important;
+            }
+        .overlay h3 {
+            font-weight: bold !important;
+            color: white;
+            font-size: 23px;
+            text-shadow: 0px 0px 3px black;
+        }
+        }
+        @media(max-width:540px){
+            .header{
+                padding-left: 40px;
+                padding-right: 0px;
+                height: 150px;
+            }
+            .header .right{
+                width: 100%;
+            }
+            .header .right h2{
+                font-size: 23px !important;
+            }
+            .header .left{
+                display: block;
+            }
+            .header .left button{
+            border-radius: 0px;
+            font-size: 14px;
+            width: 120px;
+            height: 50px;
+            margin-right: 0px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            }
+            .body{
+                margin-top: 120px;
+            }
+            .body img {
+            width: 100%;
+            margin-top: -50px;
+            height: 50vh;
+        }
+        .body .overlay {
+            width: 100%;
+            margin-top: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .overlay h3 {
+            font-weight: bold !important;
+            color: white;
+            font-size: 23px;
+            text-shadow: 0px 0px 3px black;
+        }
+        }
+        @media(max-width:414px){
+            .header{
+                padding-left: 40px;
+                padding-right: 0px;
+                height: 150px;
+            }
+            .header .right{
+                width: 100%;
+            }
+            .header .right h2{
+                font-size: 23px !important;
+            }
+            .header .left{
+                display: block;
+            }
+            .header .left button{
+            border-radius: 0px;
+            font-size: 14px;
+            width: 120px;
+            height: 50px;
+            margin-right: 0px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            }
+            .body{
+                margin-top: 120px;
+            }
+            .body img {
+            width: 100%;
+            margin-top: -50px;
+            height: 50vh;
+        }
+        .body .overlay {
+            width: 100%;
+            margin-top: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .overlay h3 {
+            font-weight: bold !important;
+            color: white;
+            font-size: 23px;
+            text-shadow: 0px 0px 3px black;
+        }
+        }
+        @media(max-width:280px){
+            .header{
+                display: block;
+                padding-left: 40px;
+                padding-right: 0px;
+                height: 210px;
+            }
+          
+            .header .right{
+                width: 100%;
+            }
+            .header .right h2{
+                margin-top: 30px;
+                margin-left: 35px;
+                font-size: 18px !important;
+            }
+            .header .left{
+                display: block;
+            }
+            .header .left button{
+            border-radius: 0px;
+            font-size: 14px;
+            width: 120px;
+            height: 50px;
+            margin-left: 40px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            }
+            .body{
+                margin-top: 120px;
+            }
+            .body img {
+            width: 100%;
+            margin-top: -10px;
+            height: 50vh;
+        }
+        .body .overlay {
+            width: 100%;
+            margin-top: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .overlay h3 {
+            font-weight: bold !important;
+            color: white;
+            font-size: 23px;
+            text-shadow: 0px 0px 3px black;
+        }
+        }
     </style>
 </head>
 
@@ -110,11 +351,9 @@
         <main>
             <div class="header">
                 <div class="right">
-                    <i class="fa fa-gears"></i>
                     <h2> SCHOOL OF ICT</h2>
                 </div>
                 <div class="left">
-                    <i class="fa fa-bell-o"></i>
                     <button class="btn btn-warning"><a href="/login">LOGIN</a></button>
                     <button class="btn btn-primary"><a href="/signup">APPLY NOW</a></button>
                 </div>

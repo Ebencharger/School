@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{url('/bootstrap.css')}}">
+    <script defer src="https://unpkg.com/alpinejs@3.8.1/dist/cdn.min.js"></script>
 
     <!-- Styles -->
     <style lang="scss">
@@ -325,9 +326,10 @@
                             <th>GRADE</th>
                         </table>
                     </div>
-
                 </form>
-
+                        <form  id="otherCourse" class="content">
+                            <h3>You are not allowed! <a href="/dashboard/payment">Make payment first</a></h3>
+                        </form>
             </div>
             </div>
         </main>
@@ -339,7 +341,10 @@
     let presentResult=@json($presentResult);
     let allResult=@json($allResult);
     let seen=false;
-     console.log(allResult);
+     let payment=@json($payment);
+     if (payment.length!=0) {
+        document.getElementById('courseReg').hidden=false;
+        document.getElementById('otherCourse').hidden=true;
     function display(params) {
         document.getElementById('table').innerHTML="";
         document.getElementById('table').innerHTML+=` <table id="table">
@@ -385,6 +390,9 @@
           } 
         }
     }
-
+    }else{
+        document.getElementById('courseReg').hidden=true;
+        document.getElementById('otherCourse').hidden=false;
+}
 </script>
 @endguest

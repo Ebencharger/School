@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{url('/bootstrap.css')}}">
+    <script defer src="https://unpkg.com/alpinejs@3.8.1/dist/cdn.min.js"></script>
 
     <!-- Styles -->
     <style lang="scss">
@@ -276,7 +277,7 @@
         }
     </style>
 </head>
-
+@if(auth()->user()->email_verified_at)
 <body>
     <main>
         <main>
@@ -304,6 +305,7 @@
 <script>
     let assignment =@json($assignment);
     let submission =@json($submit);
+    let payment=@json($payment);
     let seen = false;
     let index = 0;
     number = [];
@@ -323,9 +325,14 @@
         }
          assignment.splice(0, number.length);
     }
-     
-    console.log(assignment);
     function display() {
+        document.getElementById('body').innerHTML +=`<div x-data='@json($payment)'>
+                    <template x-if='@json($payment)==""'>
+                        <form  id="courseReg" class="content">
+                            <h3>You are not allowed! <a href="/dashboard/payment">Make payment first</a></h3>
+                        </form>
+                    </template>
+                </div>`;
         if (assignment.length==0) {
             document.getElementById('body').innerHTML += `<div class="menu">
                     <button><a href="/dashboard/completeReg">Complete Registration</a></button>
@@ -335,9 +342,15 @@
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
                       <button><a href="/dashboard/result">Result</a></button>
                 </div>`;
-            document.getElementById('body').innerHTML += `<div class="content">
-                   <h3>You don't have any project now</h3>
-                </div>`;
+            document.getElementById('body').innerHTML += `
+            <div x-data='@json($payment)'>
+                    <template x-if='@json($payment)!=""'>
+            <div class="content">
+                   <h3>You don't have any project or assignment now</h3>
+                </div>
+                </template>
+                </div>
+                `;
         }
         if (assignment.length > 0) {
             document.getElementById('body').innerHTML = "";
@@ -349,7 +362,10 @@
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
                       <button><a href="/dashboard/result">Result</a></button>
                 </div>`;
-            document.getElementById('body').innerHTML += ` <form action="{{'/dashboard/assignment'}}" method="post" id="courseReg" class="content" enctype="multipart/form-data">
+            document.getElementById('body').innerHTML += ` 
+            <div x-data='@json($payment)'>
+                    <template x-if='@json($payment)!=""'>
+            <form action="{{'/dashboard/assignment'}}" method="post" id="courseReg" class="content" enctype="multipart/form-data">
                     <div id="mycourse">
                         <h5 class="mb-5">Note: Zip either your Assignment or Project folder and let the folder name be your name</h5>
                         <div id="theCourse" hidden>
@@ -382,7 +398,10 @@
                             </div>
                         </div>
                     </div>
-                </form>`
+                </form>
+                <template>
+                    </div>
+                `
             if (assignment.length == 1) {
             document.getElementById('next').setAttribute('disabled', 'true');
             document.getElementById('prev').setAttribute('disabled', 'true');
@@ -410,7 +429,10 @@
         index--;
         display();
     }
-
-
 </script>
+@else
+<h4 class="ml-3 mt-3">You are not granted permission to this content unless you verified your email</h4>
+<button class="btn btn-primary ml-4"><a href="/dashboard">Go back</a></button>
+<button class="btn btn-primary ml-4"><a href="/verify">Verify Email now</a></button>
+@endif
 @endguest

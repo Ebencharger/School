@@ -1,6 +1,6 @@
 @guest
 <h1>YOU HAPPENED NOT TO HAVE LOGGED IN... login from here <a href="/login">Now</a></h1>
-@else                 
+@else
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{url('/bootstrap.css')}}">
     <script defer src="https://unpkg.com/alpinejs@3.8.1/dist/cdn.min.js"></script>
-
     <!-- Styles -->
     <style lang="scss">
         body {
@@ -267,8 +266,8 @@
         }
     </style>
 </head>
-@if(auth()->user()->email_verified_at)  
-<body>
+@if(auth()->user()->email_verified_at)
+ <body>
     <main>
         <main>
             <div class="header">
@@ -291,53 +290,54 @@
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
                     <button><a href="/dashboard/result">Result</a></button>
                 </div>
-                <div x-data={{$payment}}>
-                <form action="{{'/dashboard/courseReg'}}" method="post" id="courseReg" class="content">
-                    <div id="errorReg" hidden class="alert alert-danger">
-                        <h3 class="text-danger">You can not register this course now</h3>
-                    </div>
-                    <div id="errorReg2" hidden class="alert alert-danger">
-                        <h3 class="text-danger">You have registered the course already!</h3>
-                    </div>
-                    <div id="mycourse">
-                        <div id="theCourse" hidden>
-
-                        </div>
-                        <div class="mb-3">
-                            <span>Enter Course code</span>
-                            <div>
-                                <input oninput="handleCourse(this)" id="course" type="text" name="course"
-                                    value="{{old('course')}}" class="{{$errors->has('course') ? 'is-inavlid' : '' }}">
-                                <input hidden type="text" name="courseCode" id="courseCode">
-                                <input hidden type="text" name="courseTitle" id="courseTitle">
-                                <input hidden type="text" name="level" id="level">
-                                <input hidden type="text" name="unit" id="unit">
-                                <button id="course" class="btn btn-primary">ADD
-                                    COURSE</button>
-                                @error('course')
-                                <div>
-                                    <small class="text-danger">{{$message}}</small>
-                                </div>
-                                @enderror
-                                @csrf
+                        <form action="{{'/dashboard/courseReg'}}" method="post" id="courseReg" class="content">
+                            <div id="errorReg" hidden class="alert alert-danger">
+                                <h3 class="text-danger">You can not register this course now</h3>
                             </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <h2>REGISTERED COURSE</h2>
-                    </div>
-                    <div class="table">
-                        <table id="table">
-                            <th>S/N</th>
-                            <th>COURSE CODE</th>
-                            <th>COURSE TITLE</th>
-                            <th>DATE OF REGISTRATION</th>
-                            <th>UNIT</th>
-                        </table>
-                    </div>
-                </form>
+                            <div id="errorReg2" hidden class="alert alert-danger">
+                                <h3 class="text-danger">You have registered the course already!</h3>
+                            </div>
+                            <div id="mycourse">
+                                <div id="theCourse" hidden>
 
-            </div>
+                                </div>
+                                <div class="mb-3">
+                                    <span>Enter Course code</span>
+                                    <div>
+                                        <input oninput="handleCourse(this)" id="course" type="text" name="course"
+                                            value="{{old('course')}}"
+                                            class="{{$errors->has('course') ? 'is-inavlid' : '' }}">
+                                        <input hidden type="text" name="courseCode" id="courseCode">
+                                        <input hidden type="text" name="courseTitle" id="courseTitle">
+                                        <input hidden type="text" name="level" id="level">
+                                        <input hidden type="text" name="unit" id="unit">
+                                        <button id="course" class="btn btn-primary">ADD
+                                            COURSE</button>
+                                        @error('course')
+                                        <div>
+                                            <small class="text-danger">{{$message}}</small>
+                                        </div>
+                                        @enderror
+                                        @csrf
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <h2>REGISTERED COURSE</h2>
+                            </div>
+                            <div class="table">
+                                <table id="table">
+                                    <th>S/N</th>
+                                    <th>COURSE CODE</th>
+                                    <th>COURSE TITLE</th>
+                                    <th>DATE OF REGISTRATION</th>
+                                    <th>UNIT</th>
+                                </table>
+                            </div>
+                        </form>
+                <form id="otherCourse" class="content adjust">
+                    <h3>You are not allowed! <a href="/dashboard/payment">Make payment first</a></h3>
+                </form>
             </div>
             </div>
         </main>
@@ -354,9 +354,14 @@
     let seenThree = false;
     let seenFour = false;
     let seenFive = false;
-    for (let i = 0; i < course.length; i++) {
+    let payment=@json($payment);
+        if (payment.length!=0) {
+        document.getElementById('courseReg').hidden=false;
+        document.getElementById('otherCourse').hidden=true;
+        for (let i = 0; i < course.length; i++) {
         document.getElementById('theCourse').innerHTML += `<h5>${course[i].courseCode}<h5>`;
     }
+  
 
     for (let i = 0; i < regCourse.length; i++) {
         document.getElementById('table').innerHTML += `<tr><td>${i + 1}</td><td>${regCourse[i].courseCode}</td><td>${regCourse[i].courseTitle}</td><td>${regCourse[i].created_at}</td><td>${regCourse[i].unit}</td></tr>`
@@ -391,71 +396,73 @@
     handleSelectCourse = (params) => {
         document.getElementById('errorReg2').hidden = true;
         document.getElementById('errorReg').hidden = true;
-        if (regCourse.length>0) {
+        if (regCourse.length > 0) {
             for (let i = 0; i < regCourse.length; i++) {
-            if (regCourse[i].courseCode == course[params].courseCode) {
-                document.getElementById('errorReg2').hidden = false;
-                seenThree = true;
-                document.getElementById('course').value = "";
-                document.getElementById('theCourse').hidden = true;
-                setTimeout(() => {
-                    seenThree = false;
-                }, 1000);
-            }
+                if (regCourse[i].courseCode == course[params].courseCode) {
+                    document.getElementById('errorReg2').hidden = false;
+                    seenThree = true;
+                    document.getElementById('course').value = "";
+                    document.getElementById('theCourse').hidden = true;
+                    setTimeout(() => {
+                        seenThree = false;
+                    }, 1000);
+                }
 
-            else if (i == regCourse.length - 1 && seenThree == false) {
-                for (let k = 0; k < course.length; k++) {
-            if ((Number(course[k].courseCode.substr(4, 1)) > level) || (Number(course[k].courseCode.substr(4, 1)) < level)) {
-                document.getElementById('errorReg').hidden = false;
-                seenFour = true;
-                document.getElementById('course').value = "";
-                document.getElementById('theCourse').hidden = true;
-                setTimeout(() => {
-                    seenFour = false;
-                }, 1000);
-            }
+                else if (i == regCourse.length - 1 && seenThree == false) {
+                    for (let k = 0; k < course.length; k++) {
+                        if ((Number(course[k].courseCode.substr(4, 1)) > level) || (Number(course[k].courseCode.substr(4, 1)) < level)) {
+                            document.getElementById('errorReg').hidden = false;
+                            seenFour = true;
+                            document.getElementById('course').value = "";
+                            document.getElementById('theCourse').hidden = true;
+                            setTimeout(() => {
+                                seenFour = false;
+                            }, 1000);
+                        }
 
-            else if (k == course.length - 1 && seenFour == false) {
-                document.getElementById('course').value = course[params].courseCode;
-                document.getElementById('courseCode').value = course[params].courseCode;
-                document.getElementById('courseTitle').value = course[params].courseTitle;
-                document.getElementById('level').value = level;
-                document.getElementById('unit').value = course[params].unit;
-                document.getElementById('theCourse').hidden = true;
-            }
+                        else if (k == course.length - 1 && seenFour == false) {
+                            document.getElementById('course').value = course[params].courseCode;
+                            document.getElementById('courseCode').value = course[params].courseCode;
+                            document.getElementById('courseTitle').value = course[params].courseTitle;
+                            document.getElementById('level').value = level;
+                            document.getElementById('unit').value = course[params].unit;
+                            document.getElementById('theCourse').hidden = true;
+                        }
 
+                    }
+                }
+
+            }
         }
-            }
-
-        }
-        }
-        if(regCourse.length==0){
+        if (regCourse.length == 0) {
             for (let j = 0; j < course.length; j++) {
-            if ((Number(course[params].courseCode.substr(4, 1)) != level)) {
-                document.getElementById('errorReg').hidden = false;
-                seenFive = true;
-                document.getElementById('course').value = "";
-                document.getElementById('theCourse').hidden = true;
-                setTimeout(() => {
-                    seenFive = false;
-                }, 1000);
-            }
-            else if (j == course.length - 1 && seenFive == false) {
-                document.getElementById('course').value = course[params].courseCode;
-                document.getElementById('courseCode').value = course[params].courseCode;
-                document.getElementById('courseTitle').value = course[params].courseTitle;
-                document.getElementById('level').value = level;
-                document.getElementById('unit').value = course[params].unit;
-                document.getElementById('theCourse').hidden = true;
+                if ((Number(course[params].courseCode.substr(4, 1)) != level)) {
+                    document.getElementById('errorReg').hidden = false;
+                    seenFive = true;
+                    document.getElementById('course').value = "";
+                    document.getElementById('theCourse').hidden = true;
+                    setTimeout(() => {
+                        seenFive = false;
+                    }, 1000);
+                }
+                else if (j == course.length - 1 && seenFive == false) {
+                    document.getElementById('course').value = course[params].courseCode;
+                    document.getElementById('courseCode').value = course[params].courseCode;
+                    document.getElementById('courseTitle').value = course[params].courseTitle;
+                    document.getElementById('level').value = level;
+                    document.getElementById('unit').value = course[params].unit;
+                    document.getElementById('theCourse').hidden = true;
+                }
+
             }
 
         }
-                
-        }
-   
-
 
     }
+}else{
+        document.getElementById('courseReg').hidden=true;
+        document.getElementById('otherCourse').hidden=false;
+}
 </script>
 @else
 <h4 class="ml-3 mt-3">You are not granted permission to this content unless you verified your email</h4>
