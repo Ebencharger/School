@@ -219,6 +219,7 @@ Route::prefix('dashboard')->group(function () {
                 'question' => $request->question,
                 'tag' => $request->tag,
                 'file' => $path,
+                'level' => auth()->user()->level,
             ]
         );
         if ($complete) {
@@ -227,7 +228,7 @@ Route::prefix('dashboard')->group(function () {
     });
     Route::get('/assignment', function () {
         $payment = DB::table('payment')->where([['user_id', auth()->user()->id], ['level', auth()->user()->level]])->get();
-        $submission = DB::table('submission')->where('student', auth()->user()->fullname)->get();
+        $submission = DB::table('submission')->where([['student', auth()->user()->fullname], ['level', auth()->user()->level]])->get();
         $assignment = DB::table('assignment')->where('level', auth()->user()->level)->get();
         return view('assignment')->with(['assignment' => $assignment, 'submit' => $submission, 'payment'=>$payment]);
     });

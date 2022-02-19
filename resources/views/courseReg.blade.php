@@ -135,9 +135,7 @@
             padding-left: 30px
         }
 
-        .header .right i {
-                display: none;
-            }
+       
 
         .body .menu button {
             margin-bottom: 30px;
@@ -149,6 +147,10 @@
             font-size: 18px;
             font-weight: bold;
         }
+
+        .header .right i {
+                display: none;
+            }
 
         .body .menu2 {
             height: 100vh;
