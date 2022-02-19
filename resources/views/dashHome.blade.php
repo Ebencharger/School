@@ -63,6 +63,88 @@
             height: 220px;
         }
 
+        @media(max-width:912px){
+            .body .content {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            margin-left: 0px;
+            position: absolute;
+            top: 0px;
+            padding: 20px;
+            font-size: 23px;
+            text-align: justify;
+        }
+        .body .content .picture {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .body .content .picture div {
+            width: 250px;
+            height: 250px;
+            margin-right: 0px;
+            margin-bottom: 150px;
+            text-align: right;
+        }
+        }
+        @media(max-width:820px){
+            .body .content {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            margin-left: 0px;
+            position: absolute;
+            top: 0px;
+            padding: 20px;
+            font-size: 17px;
+            text-align: justify;
+        }
+        .body .content .picture {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .body .content .picture div {
+            width: 250px;
+            height: 250px;
+            margin-right: 0px;
+            margin-bottom: 150px;
+            text-align: right;
+        }
+        }
+        @media(max-width:414px){
+            .body .content {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            margin-left: 0px;
+            position: absolute;
+            top: 0px;
+            padding: 20px;
+            font-size: 17px;
+            text-align: justify;
+        }
+        .body .content .picture {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .body .content .picture div {
+            width: 250px;
+            height: 250px;
+            margin-right: 0px;
+            margin-bottom: 150px;
+            text-align: right;
+        }
+        }
+
  
     </style>
 </head>

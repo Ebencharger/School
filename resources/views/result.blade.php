@@ -147,6 +147,8 @@
             font-weight: bold;
         }
 
+      
+
         .body .content {
             width: 81%;
             height: 100%;
@@ -291,6 +293,8 @@
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
                     <button><a href="/dashboard/result">Result</a></button>
                 </div>
+
+             
                 <form action="" method="post" id="courseReg" class="content">
                     <div id="errorReg" hidden class="alert alert-danger">
                         <h3 class="text-danger">You can not register this course now</h3>

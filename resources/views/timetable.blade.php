@@ -42,6 +42,10 @@
             z-index: 7000;
         }
 
+        .header .right i {
+                display: none;
+            }
+
         i {
             color: white;
         }
@@ -144,6 +148,35 @@
             font-family: "Futura Md";
             font-size: 18px;
             font-weight: bold;
+        }
+
+        .body .menu2 {
+            height: 100vh;
+            width: 250px;
+            background-color: white;
+            box-shadow: 0px 0px 3px black;
+            position: fixed;
+            left: 0px;
+            top: 80px;
+            z-index: 9000;
+            padding-top: 20px;
+            padding-left: 30px
+        }
+        .body .menu2 button {
+            margin-bottom: 22px;
+            margin-top: 20px;
+            background-color: transparent;
+            outline: none;
+            border: 0px;
+            font-family: "Futura Md";
+            font-size: 18px;
+            font-weight: bold;
+
+        }
+
+        .body .menu2 button a{
+            text-decoration: none;
+            color: black;
         }
 
         .body .content {
@@ -264,6 +297,808 @@
         #theCourse H5 {
             margin-bottom: 23px;
         }
+
+        
+        @media(max-width:915px){
+            .body .menu {
+               overflow-y: scroll
+            }
+            .body .menu button{
+            margin-top: 10px;
+              margin-bottom: 50px;
+            }
+            .body #completeReg input {
+            width: 350px;
+           
+        }
+        }
+
+        @media(max-width:912px){
+            .header {
+                padding-left: 60px;
+                padding-right: 60px;
+            }
+
+            .header .left {
+                display: none;
+            }
+
+            .header .right {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .header .right h2 {
+                width: 100%;
+                font-size: 23px;
+            }
+
+            .header .right i {
+                margin-top: -18px;
+                font-size: 33px;
+            }
+
+            .body .menu {
+                display: none;
+            }
+
+            .body .menu2 {
+                height: 100vh;
+                width: 350px;
+            }
+            .body .menu2 button{
+                margin-top: 35px;
+                margin-bottom: 35px;
+            }
+            .body .menu2 a {
+                font-size: 28px;
+            }
+            .header .right i {
+                display: inherit;
+            }
+            .body .content {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            margin-left: 0px;
+            position: absolute;
+            top: 0px;
+            padding: 20px;
+            font-size: 23px;
+            text-align: justify;
+        }
+        .body .content .picture {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .body .content .picture div {
+            width: 250px;
+            height: 250px;
+            margin-right: 0px;
+            margin-bottom: 150px;
+            text-align: right;
+        }
+        }
+        @media(max-width:896px) {
+            .header {
+                padding-left: 60px;
+                padding-right: 60px;
+            }
+
+            .header .left {
+                display: none;
+            }
+
+            .header .right {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .header .right h2 {
+                width: 100%;
+                font-size: 23px;
+            }
+
+            .header .right i {
+                margin-top: -18px;
+                font-size: 33px;
+            }
+
+            .body .menu {
+                display: none;
+            }
+            .body .menu2 {
+                height: 100vh;
+                width: 350px;
+                overflow-y: scroll;
+            }
+            .body .menu2 button{
+                margin-top: 17px;
+                margin-bottom: 17px;
+            }
+            .body .menu2 a {
+                font-size: 22px;
+            }
+            .header .right i {
+                display: inherit;
+            }
+            .profile {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+
+        .profile2 {
+            position: absolute;
+            right: 50px;
+            top: 29px;
+        }
+
+        .profile2 img {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+        }
+        .body #completeReg input {
+            outline: none;
+            width: 350px;
+            padding: 4px;
+            margin-right: 43px;
+            margin-bottom: 20px;
+            border: none;
+            border-bottom: 2px solid #007bff;
+        }
+        #complete{
+            margin-bottom: 20px;
+        }
+        }
+        @media(max-width:820px){
+            .header {
+                padding-left: 60px;
+                padding-right: 60px;
+            }
+
+            .header .left {
+                display: none;
+            }
+
+            .header .right {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .header .right h2 {
+                width: 100%;
+                font-size: 23px;
+            }
+
+            .header .right i {
+                margin-top: -18px;
+                font-size: 33px;
+            }
+
+            .body .menu {
+                display: none;
+            }
+            .header .right i {
+                display: inherit;
+            }
+            .body .content {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            margin-left: 0px;
+            position: absolute;
+            top: 0px;
+            padding: 20px;
+            font-size: 17px;
+            text-align: justify;
+        }
+        .body .content .picture {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .body .content .picture div {
+            width: 250px;
+            height: 250px;
+            margin-right: 0px;
+            margin-bottom: 150px;
+            text-align: right;
+        }
+        .body #completeReg span {
+            margin-left: 70px;
+        }
+        .body #completeReg input {
+            outline: none;
+            width: 600px;
+            padding: 4px;
+            margin-left: 70px;
+            margin-bottom: 20px;
+            border: none;
+            border-bottom: 2px solid #007bff;
+        }
+        #complete{
+            margin-bottom: 20px;
+        }
+        }
+      
+       
+
+        @media(max-width:700px){
+            .header {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .header .left {
+                display: none;
+            }
+
+            .header .right {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .header .right h2 {
+                width: 100%;
+                font-size: 17px;
+            }
+
+            .header .right i {
+                margin-top: -18px;
+                font-size: 23px;
+            }
+
+            .body .menu {
+                display: none;
+            }
+            .body .menu2 {
+                height: 100vh;
+                width: 100%;
+                overflow-y: scroll
+            }
+            .body .menu2 button{
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+            .body .menu2 a {
+                font-size: 22px;
+            }
+            .header .right i {
+                display: inherit;
+            }
+            .body .content {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            margin-left: 0px;
+            position: absolute;
+            top: 0px;
+            padding: 20px;
+            font-size: 17px;
+            text-align: justify;
+        }
+        .body .content .picture {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .body .content .picture div {
+            width: 250px;
+            height: 250px;
+            margin-right: 0px;
+            margin-bottom: 150px;
+            text-align: right;
+        }
+        .profile {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+
+        .profile2 {
+            position: absolute;
+            right: 50px;
+            top: 40px;
+        }
+
+        .profile2 img {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+        }
+        .body #completeReg span {
+            font-weight: bold;
+            margin-left: 40px !important;
+        }
+        .body #completeReg input {
+            outline: none;
+            width: 400px;
+            padding: 4px;
+            margin-left: 40px !important;
+            margin-bottom: 20px;
+            border: none;
+            border-bottom: 2px solid #007bff;
+        }
+        #complete{
+            margin-bottom: 20px;
+        }
+        }
+        
+        @media(max-width:540px) {
+            .header {
+                padding-left: 60px;
+                padding-right: 60px;
+            }
+
+            .header .left {
+                display: none;
+            }
+
+            .header .right {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .header .right h2 {
+                width: 100%;
+                font-size: 23px;
+            }
+
+            .header .right i {
+                margin-top: -18px;
+                font-size: 33px;
+            }
+
+            .body .menu {
+                display: none;
+            }
+            .body .menu2 {
+                height: 100vh;
+                width: 350px;
+            }
+            .body .menu2 button{
+                margin-top: 17px;
+                margin-bottom: 17px;
+            }
+            .body .menu2 a {
+                font-size: 22px;
+            }
+            .header .right i {
+                display: inherit;
+            }
+            .mb-3 input{
+            width: 90% !important;
+            margin-bottom: 20px;
+        }
+        .text-center h2{
+            font-size: 18px;
+            margin-left: -60px;
+        }
+        .table {
+            width: 100% !important;
+            margin-left: 0px;
+        }
+
+        .table table {
+            width: 100% !important;
+            border: 1px solid black;
+            border-collapse: collapse
+        }
+
+
+        th,
+        td,
+        tr {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 10px;
+        }
+        }
+        @media(max-width:414px){
+            .header {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .header .left {
+                display: none;
+            }
+
+            .header .right {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .header .right h2 {
+                width: 100%;
+                font-size: 15px;
+            }
+
+            .header .right i {
+                margin-top: -18px;
+                font-size: 23px;
+            }
+
+            .body .menu {
+                display: none;
+            }
+            .body .menu2 {
+                height: 100vh;
+                width: 100%;
+            }
+            .body .menu2 button{
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+            .body .menu2 a {
+                font-size: 22px;
+            }
+            .header .right i {
+                display: inherit;
+            }
+            .body .content {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            margin-left: 0px;
+            position: absolute;
+            top: 0px;
+            padding: 20px;
+            font-size: 17px;
+            text-align: justify;
+        }
+        .body .content .picture {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .body .content .picture div {
+            width: 250px;
+            height: 250px;
+            margin-right: 0px;
+            margin-bottom: 150px;
+            text-align: right;
+        }
+        .profile {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+        }
+
+        .profile2 {
+            position: absolute;
+            right: 50px;
+            top: 40px;
+        }
+
+        .profile2 img {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+        }
+        .body #completeReg input {
+            outline: none;
+            width: 350px;
+            padding: 4px;
+            margin-left:10px !important;
+            margin-bottom: 20px;
+            border: none;
+            border-bottom: 2px solid #007bff;
+        }
+        #complete{
+            margin-bottom: 20px;
+        }
+        .body #completeReg span {
+            margin-left: 10px !important;
+        }
+        .mb-3 input{
+            width: 90% !important;
+            margin-bottom: 20px;
+        }
+        .text-center h2{
+            font-size: 18px;
+            margin-left: -60px;
+        }
+        .table {
+            width: 100%;
+        }
+
+        .table table {
+            width: 100% !important;
+            border: 1px solid black;
+            border-collapse: collapse
+        }
+
+
+        th,
+        td,
+        tr {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 10px;
+        }
+        }
+        @media(max-width:375px){
+            .header {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .header .left {
+                display: none;
+            }
+
+            .header .right {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .header .right h2 {
+                width: 100%;
+                font-size: 17px;
+            }
+
+            .header .right i {
+                margin-top: -18px;
+                font-size: 23px;
+            }
+
+            .body .menu {
+                display: none;
+            }
+            .body .menu2 {
+                height: 100vh;
+                width: 100%;
+            }
+            .body .menu2 button{
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+            .body .menu2 a {
+                font-size: 22px;
+            }
+            .header .right i {
+                display: inherit;
+            }
+            .body .content {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            margin-left: -0px;
+            position: absolute;
+            top: 0px;
+            padding: 20px;
+            font-size: 17px;
+            text-align: justify;
+        }
+        .body .content .picture {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .body .content .picture div {
+            width: 250px;
+            height: 250px;
+            margin-right: 0px;
+            margin-bottom: 150px;
+            text-align: right;
+        }
+        .profile {
+            position: absolute;
+            right: -80px;
+            top: 10px;
+        }
+
+        .profile2 {
+            position: absolute;
+            right: -50px;
+            top: 40px;
+        }
+
+        .profile2 img {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+        }
+
+        .body #completeReg span {
+            margin-left: 100px !important;
+        }
+
+        .body #completeReg input {
+            outline: none;
+            width: 300px;
+            padding: 4px;
+            margin-left: 100px !important;
+            margin-bottom: 20px;
+            border: none;
+            border-bottom: 2px solid #007bff;
+        }
+        #complete{
+            margin-bottom: 20px;
+            margin-left: 130px;
+        }
+        .body #completeReg span {
+            margin-left: 10px !important;
+        }
+        .mb-3 input{
+            width: 90% !important;
+            margin-bottom: 20px;
+        }
+        .text-center h2{
+            font-size: 18px;
+            margin-left: -60px;
+        }
+        .table {
+            width: 100% !important;
+            margin-left: 0px;
+        }
+
+        .table table {
+            width: 100% !important;
+            border: 1px solid black;
+            border-collapse: collapse
+        }
+
+
+        th,
+        td,
+        tr {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 10px;
+        }
+        }
+        @media(max-width:280px){
+            .header {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .header .left {
+                display: none;
+            }
+
+            .header .right {
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .header .right h2 {
+                width: 100%;
+                font-size: 12px;
+            }
+
+            .header .right i {
+                margin-top: -18px;
+                font-size: 23px;
+            }
+
+            .body .menu {
+                display: none;
+            }
+            .body .menu2 {
+                height: 100vh;
+                width: 100%;
+            }
+            .body .menu2 button{
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+            .body .menu2 a {
+                font-size: 22px;
+            }
+            .header .right i {
+                display: inherit;
+            }
+            .body .content {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            margin-left: 0px;
+            position: absolute;
+            top: 50px;
+            padding: 20px;
+            font-size: 17px;
+            text-align: justify;
+        }
+        .body .content .picture {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .body .content .picture div {
+            width: 250px;
+            height: 250px;
+            margin-right: 0px;
+            margin-bottom: 150px;
+            text-align: right;
+        }
+        .profile {
+            position: absolute;
+            right: -80px;
+            top: -30px;
+        }
+
+        .profile2 {
+            position: absolute;
+            right: -50px;
+            top: 0px;
+        }
+
+        .profile2 img {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+        }
+
+        .body #completeReg span {
+            margin-left: 100px !important;
+        }
+
+        .body #completeReg input {
+            outline: none;
+            width: 200px;
+            padding: 4px;
+            margin-left: 100px !important;
+            margin-bottom: 20px;
+            border: none;
+            font-size: 14px;
+            border-bottom: 2px solid #007bff;
+        }
+        #complete{
+            margin-bottom: 20px;
+            margin-left: 130px;
+            width: 200px
+        }
+        .mb-3 input{
+            width: 90% !important;
+            margin-bottom: 20px;
+        }
+        .text-center h2{
+            font-size: 18px;
+            margin-left: -60px;
+        }
+        .table {
+            width: 100% !important;
+            margin-left: 0px;
+            overflow-x: scroll;
+        }
+
+        .table table {
+            width: 100% !important;
+            border: 1px solid black;
+            border-collapse: collapse
+        }
+
+
+        th,
+        td,
+        tr {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 14px;
+        }
+        }
     </style>
 </head>
 @if(auth()->user()->email_verified_at)
@@ -271,12 +1106,11 @@
     <main>
         <main>
             <div class="header">
-                <div class="right">
-                    <i class="fa fa-gears"></i>
+                <div class="right d-flex">
                     <h2>Welcome {{auth()->user()->fullname}}</h2>
+                    <i class="fa fa-bars text-primary" onclick="handleMenu()"></i>
                 </div>
                 <div class="left">
-                    <i class="fa fa-bell-o"></i>
                     <button class="btn btn-danger"><a href="/logout">LOGOUT</a></button>
                     <button class="btn btn-primary"><a href="/dashboard">HOME</a></button>
                 </div>
@@ -289,6 +1123,17 @@
                     <button><a href="/dashboard/payment">Payment/Receipt</a></button>
                     <button><a href="/dashboard/assignment">Assignment and Project</a></button>
                     <button><a href="/dashboard/result">Result</a></button>
+                </div>
+
+                <div class="menu2" id="menu2" hidden>
+                    <div><button><a href="/dashboard/">Home</a></button></div>
+                    <div><button><a href="/dashboard/completeReg">Complete Registration</a></button></div>
+                    <div><button><a href="/dashboard/courseReg">Course Registration</a></button></div>
+                    <div><button><a href="/dashboard/timetable">Timetable</a></button></div>
+                    <div><button><a href="/dashboard/payment">Payment/Receipt</a></button></div>
+                    <div><button><a href="/dashboard/assignment">Assignment and Project</a></button></div>
+                    <div><button><a href="/dashboard/result">Check Result</a></button></div>
+                    <div> <button><a href="/logout">Logout</a></button></div>
                 </div>
                 <form action="" method="post" id="courseReg" class="content">
                     <div class="text-center">
@@ -316,6 +1161,9 @@
 <script>
     let timeTable=@json($timetable);
     // alert(JSON.stringify(timeTable));
+    function handleMenu(params) {
+        document.getElementById('menu2').hidden = !document.getElementById('menu2').hidden;
+    }
     for (let i = 0; i < timeTable.length; i++) {
         document.getElementById('table').innerHTML += `<tr><td>${i + 1}</td><td>${timeTable[i].CourseCode}</td><td>${timeTable[i].Instructor}</td><td>${timeTable[i].Day}</td><td>${timeTable[i].Time}</td></tr>`
 
