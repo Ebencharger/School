@@ -156,7 +156,6 @@
             box-shadow: 0px 0px 3px black;
             position: fixed;
             left: 0px;
-            overflow-y: scroll;
             top: 80px;
             padding-top: 20px;
             padding-left: 30px
@@ -285,6 +284,12 @@
                 display: none;
             }
 
+            @media(max-width:1024px){
+                .body .menu2{
+                   display: none;
+                }
+            }
+
         @media(max-width:912px) {
             .header {
                 padding-left: 60px;
@@ -313,10 +318,14 @@
             .body .menu {
                 display: none;
             }
+            .body .menu2{
+                   display: inherit;
+                }
 
             .body .menu2 {
                 height: 100vh;
                 width: 350px;
+                overflow-y: scroll;
             }
             .body .menu2 button{
                 margin-top: 35px;

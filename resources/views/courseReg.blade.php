@@ -791,7 +791,7 @@
         }
         .body #completeReg input {
             outline: none;
-            width: 350px;
+            width: 340px;
             padding: 4px;
             margin-left:10px !important;
             margin-bottom: 20px;

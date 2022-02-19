@@ -1548,6 +1548,9 @@
     let allResult=@json($allResult);
     let seen=false;
      let payment=@json($payment);
+     function handleMenu(params) {
+        document.getElementById('menu2').hidden = !document.getElementById('menu2').hidden;
+    }
      if (payment.length!=0) {
         document.getElementById('courseReg').hidden=false;
         document.getElementById('otherCourse').hidden=true;
