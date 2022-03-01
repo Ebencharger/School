@@ -1043,7 +1043,7 @@
                                 <span>Program:</span>
                                 <div>
                                     <input id="program" type="text" value="{{old('program')}}" name="program"
-                                        class="{{$errors->has('progrma') ? 'is-inavlid' : '' }}">
+                                        class="{{$errors->has('program') ? 'is-inavlid' : '' }}">
                                     @error('program')
                                     <div>
                                         <small class="text-danger">{{$message}}</small>
